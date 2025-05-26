@@ -11,6 +11,7 @@ class AppTextStyles {
   static const TextStyle loginButton = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w400,
+    color: AppColors.white,
   );
 
   static const TextStyle forgotPassword = TextStyle(
@@ -44,9 +45,9 @@ class AppTextStyles {
   );
 
   static const TextStyle labelsText = TextStyle(
-  color:AppColors.black,
-  fontWeight: FontWeight.w400,
-  fontSize: 16,
+    color: AppColors.black,
+    fontWeight: FontWeight.w400,
+    fontSize: 16,
   );
 
   static const TextStyle welText = TextStyle(
@@ -61,4 +62,26 @@ class AppTextStyles {
     fontWeight: FontWeight.w300,
   );
 
+  static const TextStyle homework = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 24,
+    color: AppColors.white,
+  );
+
+  static const TextStyle passage2 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w300,
+  );
+
+  static const TextStyle subject = TextStyle(
+  fontWeight: FontWeight.w800,
+  fontSize: 16,
+  color: AppColors.appColor,
+  );
+
+  static const TextStyle subjects = TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 16,
+    color: AppColors.white,
+  );
 }

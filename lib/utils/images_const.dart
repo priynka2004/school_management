@@ -16,4 +16,5 @@ class AppImagesConst {
   static const String photoImagePath = 'assets/images/Add Photo.png';
   static const String studentImagePath = 'assets/images/Student Male.png';
   static const String blackVectorImagePath = 'assets/images/Vector (1).png';
+  static const String homeworkImagePath = 'assets/images/Homework.png';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_management/screens/SchoolContactFormApp.dart';
+import 'package:school_management/screens/homework_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
@@ -72,7 +73,12 @@ class TeacherLoginScreen extends StatelessWidget {
                     crossAxisSpacing: 10,
                     children: [
                       Image.asset(AppImagesConst.guestImagePath),
-                      Image.asset(AppImagesConst.guestImagePath2),
+                      GestureDetector(onTap:(){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return HomeworkScreen();
+                            }));
+                      },child: Image.asset(AppImagesConst.guestImagePath2)),
                       Image.asset(AppImagesConst.guestImagePath3),
                       Image.asset(AppImagesConst.guestImagePath4),
                       Image.asset(AppImagesConst.guestImagePath5),

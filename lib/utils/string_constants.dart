@@ -5,6 +5,7 @@ class AppStrings {
   static const String forgotPassword = "Forgot Password ?";
   static const String poweredBy = "Powered by: XYZ COM";
   static const String fullName = "Full Name";
+  static const String mobile  = "Mobile No.";
   static const String email = "Email";
   static const String className = "Class";
   static const String section = "Section";
@@ -17,6 +18,20 @@ class AppStrings {
   static const String teacher = "Teacher";
   static const String guest = "Guest";
   static const String welcome = "Welcome Message";
+  static const String homework = "HOMEWORK";
+  static const String subject = "Subject";
+  static const String math = "Math";
+  static const String science = "Science";
+  static const String english = "English";
+  static const String addHomework = "Add homework";
+  static const String submit = "Submit";
+  static const String fileUploaded = "File is uploaded successfully";
+  static const String standard = "The standard Lorem Ipsum passage";
+  static const String session = "Select Session";
+  static const String selectStudent = "Select Student";
+  static const String passage2 =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
   static const String passage = "The standard Lorem Ipsum passage"
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 }
