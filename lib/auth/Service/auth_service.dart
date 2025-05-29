@@ -7,7 +7,6 @@ class AuthService {
   Future<ParentModel> login(String mobile, String password) async {
     final url = Uri.parse("https://mssapi.checkour.work/api/ParentLogin?mobile=$mobile&password=$password");
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 

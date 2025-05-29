@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_management/auth/login_screen.dart';
+import 'package:school_management/auth/provider/teacher_login_provider.dart';
+import 'package:school_management/auth/teacher_login_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
@@ -57,9 +59,15 @@ class _ChooseYourOptionScreenState extends State<ChooseYourOptionScreen> {
                 },
               ),
               const SizedBox(width: 80),
-              const _OptionCard(
+               _OptionCard(
                 imagePath: AppImagesConst.tuitionImagePath,
                 label: AppStrings.teacher,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) =>  TeacherLoginScreen()),
+                  );
+                },
               ),
             ],
           ),

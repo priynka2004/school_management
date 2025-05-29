@@ -30,6 +30,17 @@ class AppStrings {
   static const String session = "Select Session";
   static const String selectStudent = "Select Student";
   static const String fee = "Student fee";
+  static const String attendance = "ATTENDANCE";
+  static const String complain  = "Add Complain Box";
+  static const String viewComplain  = "View Student Complain";
+  static const String complaints  = "Complaints";
+  static const String close  = "Close";
+  static const String noFound  = "No complaints found.";
+  static const String save  = "Save";
+  static const String pleaseSelect  = "Please select student and enter message.";
+  static const String message  = "* Message :";
+  static const String students  = "* Select Student :";
+  static const String mandatory  = "* All fields are mandatory";
   static const String passage2 =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";

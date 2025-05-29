@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:school_management/auth/provider/teacher_login_provider.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
@@ -8,21 +9,21 @@ import 'package:school_management/utils/images_const.dart';
 import 'package:school_management/utils/string_constants.dart';
 import 'provider/login_provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class TeacherLoginScreen extends StatefulWidget {
+  const TeacherLoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<TeacherLoginScreen> createState() => _TeacherLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
   final _mobileController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProvider>(context);
+    final loginProvider = Provider.of<TeacherLoginProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -92,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       final mobile = _mobileController.text.trim();
                       final password = _passwordController.text.trim();
 
-                      final success = await loginProvider.login(mobile: mobile, password: password);
+                      final success = await loginProvider.loginTeacher(mobile,password);
 
                       if (context.mounted) {
                         if (success) {

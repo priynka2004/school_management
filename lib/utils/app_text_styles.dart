@@ -74,14 +74,21 @@ class AppTextStyles {
   );
 
   static const TextStyle subject = TextStyle(
-  fontWeight: FontWeight.w800,
-  fontSize: 16,
-  color: AppColors.appColor,
+    fontWeight: FontWeight.w800,
+    fontSize: 16,
+    color: AppColors.appColor,
   );
 
   static const TextStyle subjects = TextStyle(
     fontWeight: FontWeight.w800,
     fontSize: 16,
     color: AppColors.white,
+  );
+
+  static const TextStyle complain = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 30,
+    color: AppColors.black,
+    fontFamily: "Lato",
   );
 }
