@@ -96,10 +96,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       if (context.mounted) {
                         if (success) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (_) => const ViewFeeScreen()),
-                          );
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(builder: (_) => const ViewFeeScreen()),
+                          // );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

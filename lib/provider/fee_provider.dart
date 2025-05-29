@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:school_management/model/Session.dart';
+import 'package:school_management/model/Student.dart';
+import 'package:school_management/model/fee_detail.dart';
 import '../services/fee_service.dart';
 
 class FeeProvider with ChangeNotifier {
   final FeeService _feeService = FeeService();
 
-  List<String> _sessions = [];
-  String? _selectedSession;
+  List<Session> _sessions = [];
+  Session? _selectedSession;
 
-  List<String> _students = [];
-  String? _selectedStudent;
+  List<Student> _students = [];
+  Student? _selectedStudent;
 
-  int? _parentId; // 👈 Track parent ID
+  int? _parentId;
 
-  List<String> get sessions => _sessions;
-  String? get selectedSession => _selectedSession;
+  List<FeeDetail> _feeDetails = [];
+  FeeDetail? _selectedFeeDetail;
 
-  List<String> get students => _students;
-  String? get selectedStudent => _selectedStudent;
+  List<Session> get sessions => _sessions;
+  Session? get selectedSession => _selectedSession;
+
+  List<Student> get students => _students;
+  Student? get selectedStudent => _selectedStudent;
+
+
+  List<FeeDetail> get feeDetails => _feeDetails;
+  FeeDetail? get selectedFeeDetail => _selectedFeeDetail;
+
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
+
+
 
   void setParentId(int id) {
     _parentId = id;
@@ -31,27 +49,45 @@ class FeeProvider with ChangeNotifier {
     }
   }
 
-  void setSelectedSession(String value) {
-    _selectedSession = value;
-    notifyListeners();
 
+  void setSelectedSession(Session session) {
+    _selectedSession = session;
+    notifyListeners();
     if (_parentId != null) {
-      loadStudentNames(_parentId!); // 👈 Use parent ID when session changes
+      loadStudentNames(_parentId!);
     }
   }
 
   Future<void> loadStudentNames(int parentId) async {
     try {
       _students = await _feeService.fetchStudentNames(parentId);
-      _selectedStudent = null; // reset selected student on session change
+      _selectedStudent = null;
       notifyListeners();
     } catch (e) {
       print("Error loading students: $e");
     }
   }
 
-  void setSelectedStudent(String value) {
+  void setSelectedStudent(Student value) {
     _selectedStudent = value;
     notifyListeners();
   }
+
+  void setSelectedFeeDetail(FeeDetail feeDetail) {
+    _selectedFeeDetail = feeDetail;
+    notifyListeners();
+  }
+
+
+  Future<void> loadFeeDetails(int studentId, String sessionId) async {
+    print("loadFeeDetails called with studentId: $studentId, sessionId: $sessionId");
+
+    final fees = await _feeService.fetchStudentFee(studentId: studentId, sessionId: sessionId);
+
+    print("Loaded fees count: ${fees.length}");
+
+    _feeDetails = fees;
+    notifyListeners();
+  }
+
 }

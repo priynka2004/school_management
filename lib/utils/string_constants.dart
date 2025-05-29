@@ -29,6 +29,7 @@ class AppStrings {
   static const String standard = "The standard Lorem Ipsum passage";
   static const String session = "Select Session";
   static const String selectStudent = "Select Student";
+  static const String fee = "Student fee";
   static const String passage2 =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";

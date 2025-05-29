@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:school_management/provider/fee_provider.dart';
 import 'package:school_management/screens/splash_screen.dart';
-
 import 'auth/provider/login_provider.dart';
 
 void main() {
