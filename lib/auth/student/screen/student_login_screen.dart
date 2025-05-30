@@ -8,7 +8,7 @@ import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
 import 'package:school_management/utils/string_constants.dart';
-import 'provider/login_provider.dart';
+import '../provider/student_login_provider.dart';
 
 class StudentLoginScreen extends StatefulWidget {
   const StudentLoginScreen({super.key});
@@ -24,7 +24,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<LoginProvider>(context);
+    final loginProvider = Provider.of<StudentLoginProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(

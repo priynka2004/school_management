@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:school_management/auth/student_login_screen.dart';
+import 'package:school_management/auth/student/screen/student_login_screen.dart';
 import 'package:school_management/auth/parent/screen/parent_profile_screen.dart';
-import 'package:school_management/auth/provider/teacher_login_provider.dart';
-import 'package:school_management/auth/teacher_login_screen.dart';
+import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
+import 'package:school_management/auth/teacher/screen/teacher_login_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';

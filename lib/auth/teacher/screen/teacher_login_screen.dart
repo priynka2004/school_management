@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:school_management/auth/change_password_screen.dart';
-import 'package:school_management/auth/provider/teacher_login_provider.dart';
+import 'package:school_management/auth/teacher/screen/teacher_change_password_screen.dart';
+import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
 import 'package:school_management/screens/add_complain_box_screen.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
 import 'package:school_management/utils/string_constants.dart';
-import 'provider/login_provider.dart';
 
 class TeacherLoginScreen extends StatefulWidget {
   const TeacherLoginScreen({super.key});
@@ -143,7 +142,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const ChangePasswordScreen(),
+                          builder: (_) => const TeacherChangePasswordScreen(),
                         ),
                       );
                     },

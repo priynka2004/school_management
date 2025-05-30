@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:school_management/auth/ModelClass/parent_login_response.dart';
-import 'package:school_management/auth/Service/auth_service.dart';
+import 'package:school_management/auth/parent/model/parent_login_response.dart';
+import 'package:school_management/auth/student/service/student_login_service.dart';
 
-class LoginProvider extends ChangeNotifier {
+class StudentLoginProvider extends ChangeNotifier {
   bool isLoading = false;
   String? error;
   ParentModel? _parentData;
@@ -12,7 +12,7 @@ class LoginProvider extends ChangeNotifier {
 
   bool get isLoggedIn => _isLoggedIn;
 
-  final AuthService _authService = AuthService();
+  final StudentLoginService _authService = StudentLoginService();
 
   Future<bool> login({required String mobile, required String password}) async {
     isLoading = true;

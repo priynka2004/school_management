@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:school_management/auth/ModelClass/teacher_model.dart';
-import 'package:school_management/auth/Service/teacher_login_service.dart';
-import 'package:school_management/model/complain_model.dart';
-import 'package:school_management/services/complain_service.dart';
+import 'package:school_management/auth/teacher/model/teacher_model.dart';
+import 'package:school_management/auth/teacher/service/teacher_login_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherLoginProvider with ChangeNotifier {

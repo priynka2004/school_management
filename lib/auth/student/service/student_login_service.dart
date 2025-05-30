@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:school_management/auth/ModelClass/parent_login_response.dart';
+import 'package:school_management/auth/parent/model/parent_login_response.dart';
 
-class AuthService {
+class StudentLoginService {
 
   Future<ParentModel> login(String mobile, String password) async {
     final url = Uri.parse("https://mssapi.checkour.work/api/ParentLogin?mobile=$mobile&password=$password");

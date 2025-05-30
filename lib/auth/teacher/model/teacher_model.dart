@@ -1,5 +1,3 @@
-import 'package:xml/xml.dart';
-
 class TeacherModel {
   final int? id;
   final int? branchId;
@@ -17,16 +15,6 @@ class TeacherModel {
     this.auth,
   });
 
-  // factory TeacherModel.fromXml(XmlElement table) {
-  //   return TeacherModel(
-  //     id: int.tryParse(table.getElement('ID')?.innerText ?? ''),
-  //     branchId: int.tryParse(table.getElement('BranchID')?.innerText ?? ''),
-  //     name: table.getElement('Name')?.innerText,
-  //     mobile: table.getElement('Mobile')?.innerText,
-  //     email: table.getElement('Email')?.innerText,
-  //     auth: table.getElement('auth')?.innerText,
-  //   );
-  // }
 
   factory TeacherModel.fromJson(Map<String, dynamic> json) {
     return TeacherModel(

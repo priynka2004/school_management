@@ -28,7 +28,7 @@ class FeeProvider with ChangeNotifier {
   List<FeeDetail> get feeDetails => _feeDetails;
   FeeDetail? get selectedFeeDetail => _selectedFeeDetail;
 
-  bool _isLoading = false;
+  final bool _isLoading = false;
   String? _errorMessage;
 
   bool get isLoading => _isLoading;
