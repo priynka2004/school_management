@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:school_management/screens/add_complain_box_screen.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
@@ -8,14 +10,14 @@ import 'package:school_management/utils/images_const.dart';
 import 'package:school_management/utils/string_constants.dart';
 import 'provider/login_provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class StudentLoginScreen extends StatefulWidget {
+  const StudentLoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<StudentLoginScreen> createState() => _StudentLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _StudentLoginScreenState extends State<StudentLoginScreen> {
   final _mobileController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
@@ -58,12 +60,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   TextField(
                     controller: _mobileController,
+                    keyboardType: TextInputType.phone,
+                    maxLength: 10,
                     decoration: const InputDecoration(
                       labelText: AppStrings.mobile,
                       suffixIcon: Icon(Icons.person),
+                      counterText: '', // Hide the character counter
                     ),
-                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(10),
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
+
                   const SizedBox(height: 20),
                   TextField(
                     controller: _passwordController,

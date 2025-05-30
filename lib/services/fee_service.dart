@@ -10,7 +10,7 @@ class FeeService {
     final url = Uri.parse("https://mssapi.checkour.work/api/parent/studentSession");
     final response = await http.get(url);
 
-    print("Sessions API raw response: ${response.body}");  // <-- add this
+    print("Sessions API raw response: ${response.body}");
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);

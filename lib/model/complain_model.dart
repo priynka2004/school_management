@@ -15,13 +15,15 @@ class ComplainModel {
 
   factory ComplainModel.fromJson(Map<String, dynamic> json) {
     return ComplainModel(
-      id: json['id'].toString(),
+      id: json['ID'].toString(), // ✅ Corrected key
       studentId: json['StudentID'].toString(),
       parentId: json['ParentID'].toString(),
       message: json['Message'] ?? '',
       date: json['created_at'] ?? '',
     );
   }
+
+
 
   Map<String, dynamic> toJson() {
     return {

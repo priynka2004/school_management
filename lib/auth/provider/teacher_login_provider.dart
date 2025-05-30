@@ -42,6 +42,35 @@ class TeacherLoginProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+
+  Future<bool> changePassword(String oldPassword, String newPassword) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final teacherId = prefs.getInt('teacherId');
+
+      if (teacherId == null) {
+        error = "Teacher ID not found";
+        return false;
+      }
+
+      final success = await _service.changePassword(
+        teacherId: teacherId,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+
+      if (!success) {
+        error = "Failed to change password";
+      }
+
+      return success;
+    } catch (e) {
+      error = "Error: $e";
+      return false;
+    }
+  }
+
 }
 
 

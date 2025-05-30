@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:school_management/auth/change_password_screen.dart';
 import 'package:school_management/auth/provider/teacher_login_provider.dart';
+import 'package:school_management/screens/add_complain_box_screen.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
@@ -59,12 +62,19 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                 children: [
                   TextField(
                     controller: _mobileController,
+                    keyboardType: TextInputType.phone,
+                    maxLength: 10,
                     decoration: const InputDecoration(
                       labelText: AppStrings.mobile,
                       suffixIcon: Icon(Icons.person),
+                      counterText: '', // Hide the character counter
                     ),
-                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(10),
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
+
                   const SizedBox(height: 20),
                   TextField(
                     controller: _passwordController,
@@ -99,7 +109,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                         if (success) {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => const ViewFeeScreen()),
+                            MaterialPageRoute(builder: (_) => const AddComplainBoxScreen()),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -127,6 +137,23 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                   const Text(
                     AppStrings.forgotPassword,
                     style: AppTextStyles.forgotPassword,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ChangePasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Change Password",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
                 ],
               ),

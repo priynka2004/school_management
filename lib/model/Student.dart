@@ -5,7 +5,7 @@ class Student {
   Student({required this.id, required this.name});
 
   factory Student.fromJson(Map<String, dynamic> json) {
-    final id = json['ID']; // NOT StudentID
+    final id = json['ID'];
     final name = json['StudentName'];
 
     if (id == null || name == null) {

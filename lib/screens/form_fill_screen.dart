@@ -6,8 +6,8 @@ import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
 import 'package:school_management/utils/string_constants.dart';
 
-class TeacherLoginScreen extends StatelessWidget {
-  const TeacherLoginScreen({super.key});
+class FormFillScreen extends StatelessWidget {
+  const FormFillScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

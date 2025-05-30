@@ -15,7 +15,6 @@ class AuthService {
         throw Exception("Invalid login credentials or server error");
       }
 
-      // Agar data List hai to first item ko model me convert karo
       if (data is List && data.isNotEmpty) {
         return ParentModel.fromJson(data[0]);
       }

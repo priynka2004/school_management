@@ -116,7 +116,6 @@ class _ViewFeeScreenState extends State<ViewFeeScreen> {
 
                 const SizedBox(height: 20),
 
-
                 DropdownButtonFormField<Student>(
                     decoration: InputDecoration(
                       labelText: AppStrings.selectStudent,

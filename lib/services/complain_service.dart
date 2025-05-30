@@ -48,10 +48,27 @@ class ComplainService {
     }
   }
 
-  Future<bool> deleteComplain(String complainId) async {
-    final url = Uri.parse("$baseUrl/delete-complain/$complainId");
-    final response = await http.delete(url);
 
-    return response.statusCode == 200;
+  Future<bool> deleteComplain(String parentId, String complainId) async {
+    final url = Uri.parse("$baseUrl/delete-complain/$parentId?complainId=$complainId");
+
+    final response = await http.get(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("Delete API status: ${response.statusCode}");
+      print("Delete API response: ${response.body}");
+      return false;
+    }
   }
+
+
+
+
 }

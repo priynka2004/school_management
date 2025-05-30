@@ -40,6 +40,7 @@ class AppStrings {
   static const String pleaseSelect  = "Please select student and enter message.";
   static const String message  = "* Message :";
   static const String students  = "* Select Student :";
+  static const String profile  = "Parent Profile ";
   static const String mandatory  = "* All fields are mandatory";
   static const String passage2 =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

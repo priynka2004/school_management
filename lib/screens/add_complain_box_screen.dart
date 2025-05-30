@@ -215,9 +215,21 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                                     itemBuilder: (context, index) {
                                       final complaint = complaints[index];
                                       return ListTile(
-                                       // title:
-                                       // Text("Student ID: ${complaint.studentId}"),
-                                        subtitle: Text(complaint.message),
+                                        title: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(child: Text(complaint.message)),
+                                            IconButton(
+                                              icon: const Icon(Icons.delete, color: Colors.red),
+                                              onPressed: () async {
+                                                await complainProvider.deleteComplain(parentId, complaint.id, context);
+                                                await complainProvider.fetchComplainList(parentId);
+                                                Navigator.of(context).pop(); // close dialog
+                                              },
+                                            ),
+
+                                          ],
+                                        ),
                                       );
                                     },
                                   ),
@@ -229,6 +241,7 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                                   ),
                                 ],
                               );
+
                             }
                           },
                         );

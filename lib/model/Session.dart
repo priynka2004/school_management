@@ -5,7 +5,7 @@ class Session {
   Session({required this.id, required this.name});
 
   factory Session.fromJson(Map<String, dynamic> json) {
-    final id = json['ID']; // NOT SessionID
+    final id = json['ID'];
     final name = json['SessionName'];
 
     if (id == null || name == null) {

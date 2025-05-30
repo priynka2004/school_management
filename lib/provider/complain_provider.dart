@@ -55,8 +55,8 @@ class ComplainProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteComplain(String complainId, BuildContext context) async {
-    final success = await _complainService.deleteComplain(complainId);
+  Future<void> deleteComplain(String parentId, String complainId, BuildContext context) async {
+    bool success = await _complainService.deleteComplain(parentId, complainId);
 
     if (success) {
       _complains.removeWhere((item) => item.id == complainId);
@@ -70,4 +70,7 @@ class ComplainProvider extends ChangeNotifier {
       );
     }
   }
+
+
+
 }

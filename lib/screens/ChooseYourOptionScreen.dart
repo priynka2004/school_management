@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:school_management/auth/login_screen.dart';
+import 'package:school_management/auth/student_login_screen.dart';
+import 'package:school_management/auth/parent/screen/parent_profile_screen.dart';
 import 'package:school_management/auth/provider/teacher_login_provider.dart';
 import 'package:school_management/auth/teacher_login_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
@@ -54,30 +55,56 @@ class _ChooseYourOptionScreenState extends State<ChooseYourOptionScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    MaterialPageRoute(builder: (_) => const StudentLoginScreen()),
                   );
                 },
               ),
               const SizedBox(width: 80),
-               _OptionCard(
+              _OptionCard(
                 imagePath: AppImagesConst.tuitionImagePath,
                 label: AppStrings.teacher,
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) =>  TeacherLoginScreen()),
+                    MaterialPageRoute(builder: (_) => TeacherLoginScreen()),
                   );
                 },
               ),
             ],
           ),
           const SizedBox(height: 20),
-          const Center(
-            child: _OptionCard(
-              imagePath:AppImagesConst.personImagePath,
-              label: AppStrings.guest,
-            ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _OptionCard(
+                imagePath: AppImagesConst.personImagePath,
+                label: AppStrings.guest,
+              ),
+              const SizedBox(width: 80),
+              _OptionCard(
+                imagePath: AppImagesConst.maleImagePath,
+                label: AppStrings.profile,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ParentProfileScreen(
+                        parentId: 1,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
+
+          // const Center(
+          //   child: _OptionCard(
+          //     imagePath:AppImagesConst.personImagePath,
+          //     label: AppStrings.guest,
+          //   ),
+          // ),
         ],
       ),
     );

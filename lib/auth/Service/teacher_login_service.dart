@@ -28,4 +28,36 @@ class TeacherLoginService {
       throw Exception("Failed to login");
     }
   }
+
+
+
+  Future<bool> changePassword({
+    required int teacherId,
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final url = Uri.parse('https://mssapi.checkour.work/api/teacher/change-password');
+
+    final body = jsonEncode({
+      "TeacherID": teacherId.toString(),
+      "OldPassword": oldPassword,
+      "NewPassword": newPassword,
+    });
+
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    print("Change Password Status: ${response.statusCode}");
+    print("Change Password Response: ${response.body}");
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
