@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:school_management/model/Student.dart';
 import 'package:school_management/provider/complain_provider.dart';
 import 'package:school_management/provider/fee_provider.dart';
 import 'package:school_management/utils/app_text_styles.dart';
@@ -14,7 +15,8 @@ class AddComplainBoxScreen extends StatefulWidget {
 }
 
 class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
-  String? selectedStudent;
+  Student? selectedStudent;
+
   final TextEditingController _messageController = TextEditingController();
   final String parentId = "1";
 
@@ -28,8 +30,6 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
     return null;
   }
 
-
-
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,9 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
   Widget build(BuildContext context) {
     final feeProvider = Provider.of<FeeProvider>(context);
     final complainProvider = Provider.of<ComplainProvider>(context);
-    List<Object> studentList = feeProvider.students ?? [];
+   // List<Object> studentList = feeProvider.students ?? [];
+    //final feeProvider = Provider.of<FeeProvider>(context);
+    final List<Student> studentList = feeProvider.students;
 
     return Scaffold(
       backgroundColor: AppColors.appColorGrey,
@@ -81,22 +83,23 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
+                              child: DropdownButton<Student>(
                                 hint: const Text(AppStrings.selectStudent),
                                 value: selectedStudent,
                                 isExpanded: true,
                                 items: studentList.map((student) {
-                                  return DropdownMenuItem<String>(
-                                    value: student.toString(),
-                                    child: Text(student.toString()),
+                                  return DropdownMenuItem<Student>(
+                                    value: student,
+                                    child: Text(student.name), // ✅ `student.name` works now
                                   );
                                 }).toList(),
-                                onChanged: (value) {
+                                onChanged: (Student? value) {
                                   setState(() {
-                                    selectedStudent = value;
+                                    selectedStudent = value; // ✅ Don't call `.toString()`
                                   });
                                 },
                               ),
+
                             ),
                           ),
                           const SizedBox(height: 5),
@@ -133,14 +136,12 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                               onPressed: complainProvider.isLoading
                                   ? null
                                   : () async {
-                                final studentId = getStudentId(selectedStudent);
+                                final studentId = selectedStudent?.id.toString();
                                 final message = _messageController.text.trim();
 
                                 if (studentId == null || message.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            AppStrings.pleaseSelect)),
+                                    const SnackBar(content: Text(AppStrings.pleaseSelect)),
                                   );
                                   return;
                                 }
@@ -159,6 +160,7 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                                   selectedStudent = null;
                                 });
                               },
+
                               child: complainProvider.isLoading
                                   ? const CircularProgressIndicator(
                                 color: Colors.white,
@@ -188,61 +190,62 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                     Container(color: AppColors.blue, height: 7),
                     GestureDetector(
                       onTap: () {
-                        final complaints = complainProvider.complains;
-
                         showDialog(
                           context: context,
                           builder: (context) {
-                            if (complaints.isEmpty) {
-                              return AlertDialog(
-                                title: const Text(AppStrings.complaints),
-                                content: const Text(AppStrings.noFound),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text(AppStrings.close),
-                                  ),
-                                ],
-                              );
-                            } else {
-                              return AlertDialog(
-                                title: const Text(AppStrings.complaints),
-                                content: SizedBox(
-                                  width: double.maxFinite,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: complaints.length,
-                                    itemBuilder: (context, index) {
-                                      final complaint = complaints[index];
-                                      return ListTile(
-                                        title: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(child: Text(complaint.message)),
-                                            IconButton(
-                                              icon: const Icon(Icons.delete, color: Colors.red),
-                                              onPressed: () async {
-                                                await complainProvider.deleteComplain(parentId, complaint.id, context);
-                                                await complainProvider.fetchComplainList(parentId);
-                                                Navigator.of(context).pop(); // close dialog
-                                              },
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                final complaints = complainProvider.complains;
+
+                                if (complaints.isEmpty) {
+                                  return AlertDialog(
+                                    title: const Text(AppStrings.complaints),
+                                    content: const Text(AppStrings.noFound),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text(AppStrings.close),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return AlertDialog(
+                                    title: const Text(AppStrings.complaints),
+                                    content: SizedBox(
+                                      width: double.maxFinite,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: complaints.length,
+                                        itemBuilder: (context, index) {
+                                          final complaint = complaints[index];
+                                          return ListTile(
+                                            title: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(child: Text(complaint.message)),
+                                                IconButton(
+                                                  icon: const Icon(Icons.delete, color: Colors.red),
+                                                  onPressed: () async {
+                                                    await complainProvider.deleteComplain(parentId, complaint.id, context);
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                              ],
                                             ),
-
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text('Close'),
-                                  ),
-                                ],
-                              );
-
-                            }
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('Close'),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              },
+                            );
                           },
                         );
                       },

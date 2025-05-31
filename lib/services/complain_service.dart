@@ -26,8 +26,15 @@ class ComplainService {
       },
     );
 
-    return response.statusCode == 200;
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      print("Add complain failed: ${response.statusCode}");
+      print("Response body: ${response.body}");
+      return false;
+    }
   }
+
 
   Future<List<ComplainModel>> getComplainList(String parentId) async {
     final url = Uri.parse("$baseUrl/complain-list/$parentId");
@@ -67,8 +74,5 @@ class ComplainService {
       return false;
     }
   }
-
-
-
 
 }

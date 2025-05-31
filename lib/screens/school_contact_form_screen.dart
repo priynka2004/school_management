@@ -6,14 +6,14 @@ import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
 import 'package:school_management/utils/string_constants.dart';
 
-class ContactFormScreen extends StatefulWidget {
-  const ContactFormScreen({super.key});
+class SchoolContactFormScreen extends StatefulWidget {
+  const SchoolContactFormScreen({super.key});
 
   @override
-  State<ContactFormScreen> createState() => _ContactFormScreenState();
+  State<SchoolContactFormScreen> createState() => _SchoolContactFormScreenState();
 }
 
-class _ContactFormScreenState extends State<ContactFormScreen> {
+class _SchoolContactFormScreenState extends State<SchoolContactFormScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController1 = TextEditingController();
   final TextEditingController classController = TextEditingController();
