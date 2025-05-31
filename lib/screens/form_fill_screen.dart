@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:school_management/screens/SchoolContactFormApp.dart';
+import 'package:school_management/screens/school_contact_form_screen.dart';
 import 'package:school_management/screens/homework_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
@@ -91,7 +91,7 @@ class FormFillScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return ContactFormScreen();
+                              return SchoolContactFormScreen();
                             }));
                           },
                           child: Image.asset(AppImagesConst.guestImagePath7)),
