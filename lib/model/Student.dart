@@ -16,5 +16,16 @@ class Student {
   }
 
   @override
-  String toString() => name;
+  String toString() => '$id/$name';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is Student &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              name == other.name;
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode;
 }

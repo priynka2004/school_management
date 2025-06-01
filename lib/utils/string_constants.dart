@@ -37,6 +37,7 @@ class AppStrings {
   static const String close  = "Close";
   static const String noFound  = "No complaints found.";
   static const String save  = "Save";
+  static const String parent  = "Parent";
   static const String pleaseSelect  = "Please select student and enter message.";
   static const String message  = "* Message :";
   static const String students  = "* Select Student :";

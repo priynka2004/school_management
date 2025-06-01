@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:school_management/auth/teacher/screen/teacher_change_password_screen.dart';
 import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
 import 'package:school_management/screens/add_complain_box_screen.dart';
+import 'package:school_management/screens/dashboard_student.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
@@ -108,7 +109,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                         if (success) {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => const AddComplainBoxScreen()),
+                            MaterialPageRoute(builder: (_) => const DashboardStudent()),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -137,23 +138,23 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                     AppStrings.forgotPassword,
                     style: AppTextStyles.forgotPassword,
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const TeacherChangePasswordScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Change Password",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (_) => const TeacherChangePasswordScreen(),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const Text(
+                  //     "Change Password",
+                  //     style: TextStyle(
+                  //       color: Colors.blue,
+                  //       decoration: TextDecoration.underline,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

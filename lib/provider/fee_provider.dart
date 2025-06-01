@@ -50,13 +50,22 @@ class FeeProvider with ChangeNotifier {
   }
 
 
-  void setSelectedSession(Session session) {
+  // void setSelectedSession(Session session) {
+  //   _selectedSession = session;
+  //   notifyListeners();
+  //   if (_parentId != null) {
+  //     loadStudentNames(_parentId!);
+  //   }
+  // }
+
+  void setSelectedSession(Session? session) {
     _selectedSession = session;
     notifyListeners();
-    if (_parentId != null) {
+    if (_parentId != null && session != null) {
       loadStudentNames(_parentId!);
     }
   }
+
 
   Future<void> loadStudentNames(int parentId) async {
     try {
@@ -68,10 +77,16 @@ class FeeProvider with ChangeNotifier {
     }
   }
 
-  void setSelectedStudent(Student value) {
+  // void setSelectedStudent(Student value) {
+  //   _selectedStudent = value;
+  //   notifyListeners();
+  // }
+
+  void setSelectedStudent(Student? value) {
     _selectedStudent = value;
     notifyListeners();
   }
+
 
   void setSelectedFeeDetail(FeeDetail feeDetail) {
     _selectedFeeDetail = feeDetail;
