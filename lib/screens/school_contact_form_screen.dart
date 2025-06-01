@@ -38,94 +38,92 @@ class _SchoolContactFormScreenState extends State<SchoolContactFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Image.asset(AppImagesConst.vectorImagePath),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Center(
-                      child: Stack(
-                        children: [
-                          Image.asset(AppImagesConst.vectorImagePath2),
-                           Positioned(
-                            top: 60,
-                            left: 75,
-                            child: Image.asset(
-                              AppImagesConst.unionImagePath,
-                              height: 60,
-                              width: 60,
-                            ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Image.asset(AppImagesConst.vectorImagePath),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        Image.asset(AppImagesConst.vectorImagePath2),
+                         Positioned(
+                          top: 60,
+                          left: 75,
+                          child: Image.asset(
+                            AppImagesConst.unionImagePath,
+                            height: 60,
+                            width: 60,
                           ),
-                          Positioned(
-                            top: 90,
-                            left: 40,
-                            child: GestureDetector(
-                              onTap: _pickImageFromCamera,
-                              child: _selectedImage == null
-                                  ? Image.asset(
-                                AppImagesConst.photoImagePath,
+                        ),
+                        Positioned(
+                          top: 90,
+                          left: 40,
+                          child: GestureDetector(
+                            onTap: _pickImageFromCamera,
+                            child: _selectedImage == null
+                                ? Image.asset(
+                              AppImagesConst.photoImagePath,
+                              height: 108,
+                              width: 133,
+                            )
+                                : ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.file(
+                                _selectedImage!,
                                 height: 108,
                                 width: 133,
-                              )
-                                  : ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.file(
-                                  _selectedImage!,
-                                  height: 108,
-                                  width: 133,
-                                  fit: BoxFit.cover,
-                                ),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              _buildTextField(AppStrings.fullName, nameController),
-              const SizedBox(height: 12),
-              _buildTextField(AppStrings.email, emailController1),
-              const SizedBox(height: 12),
-              _buildTextField(AppStrings.className, classController),
-              const SizedBox(height: 12),
-              _buildTextField(AppStrings.section, sectionController),
-              const SizedBox(height: 12),
-              _buildTextField(AppStrings.rollNo, rollNoController),
-              const SizedBox(height: 12),
-              _buildTextField(AppStrings.alternateEmail, emailController2),
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Add contact logic here
-                    },
-                    child: const Text(
-                      AppStrings.addToContact,
-                      style: AppTextStyles.buttonText,
+                        ),
+                      ],
                     ),
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _buildTextField(AppStrings.fullName, nameController),
+            const SizedBox(height: 12),
+            _buildTextField(AppStrings.email, emailController1),
+            const SizedBox(height: 12),
+            _buildTextField(AppStrings.className, classController),
+            const SizedBox(height: 12),
+            _buildTextField(AppStrings.section, sectionController),
+            const SizedBox(height: 12),
+            _buildTextField(AppStrings.rollNo, rollNoController),
+            const SizedBox(height: 12),
+            _buildTextField(AppStrings.alternateEmail, emailController2),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    // Add contact logic here
+                  },
+                  child: const Text(
+                    AppStrings.addToContact,
+                    style: AppTextStyles.buttonText,
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

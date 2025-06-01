@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:school_management/auth/student/screen/StudentDashboard_d.dart';
 import 'package:school_management/screens/add_complain_box_screen.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
@@ -107,7 +108,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                         if (success) {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => const ViewFeeScreen()),
+                            MaterialPageRoute(builder: (_) => const StudentDashboardD()),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

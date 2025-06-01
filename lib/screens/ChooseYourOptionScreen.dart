@@ -74,37 +74,47 @@ class _ChooseYourOptionScreenState extends State<ChooseYourOptionScreen> {
           ),
           const SizedBox(height: 20),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _OptionCard(
-                imagePath: AppImagesConst.personImagePath,
-                label: AppStrings.guest,
-              ),
-              const SizedBox(width: 80),
-              _OptionCard(
-                imagePath: AppImagesConst.maleImagePath,
-                label: AppStrings.profile,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ParentProfileScreen(
-                        parentId: 1,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-
-          // const Center(
-          //   child: _OptionCard(
-          //     imagePath:AppImagesConst.personImagePath,
-          //     label: AppStrings.guest,
-          //   ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     _OptionCard(
+          //       imagePath: AppImagesConst.personImagePath,
+          //       label: AppStrings.guest,
+          //     ),
+          //     const SizedBox(width: 80),
+          //     _OptionCard(
+          //       imagePath: AppImagesConst.maleImagePath,
+          //       label: AppStrings.profile,
+          //       onTap: () {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //             builder: (_) => ParentProfileScreen(
+          //               parentId: 1,
+          //             ),
+          //           ),
+          //         );
+          //       },
+          //     ),
+          //   ],
           // ),
+
+           Center(
+            child: _OptionCard(
+              imagePath:AppImagesConst.personImagePath,
+              label: AppStrings.parent,
+    onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ParentProfileScreen(
+                  parentId: 1,
+                ),
+              ),
+            );
+          },
+            ),
+          ),
         ],
       ),
     );

@@ -53,7 +53,7 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
           AppStrings.complain,
           style: AppTextStyles.complain,
         ),
-        backgroundColor: AppColors.appColorGrey,
+        backgroundColor: AppColors.appColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -65,7 +65,7 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                 color: AppColors.white,
                 child: Column(
                   children: [
-                    Container(color: AppColors.blue, height: 7),
+                    Container(color: AppColors.appColor, height: 7),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Column(
@@ -187,7 +187,7 @@ class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
                 color: AppColors.white,
                 child: Column(
                   children: [
-                    Container(color: AppColors.blue, height: 7),
+                    Container(color: AppColors.appColor, height: 7),
                     GestureDetector(
                       onTap: () {
                         showDialog(

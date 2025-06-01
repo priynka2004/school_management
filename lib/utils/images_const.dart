@@ -18,4 +18,8 @@ class AppImagesConst {
   static const String blackVectorImagePath = 'assets/images/Vector (1).png';
   static const String homeworkImagePath = 'assets/images/Homework.png';
   static const String attendanceImagePath = 'assets/images/Attendance.png';
+  static const String emojiImagePath = 'assets/images/bx-happy.svg.png';
+  static const String rectangle3 = 'assets/images/Rectangle 3.png';
+  static const String questions = 'assets/images/Questions.png';
 }
+
