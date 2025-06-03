@@ -15,11 +15,16 @@ class StudentViewProfile extends StatelessWidget {
     final screenHeight = size.height;
 
     // Define scaling factors based on screen size (adjust as needed)
-    final double horizontalPadding = screenWidth * 0.04;  // ~4% padding horizontally
-    final double verticalPadding = screenHeight * 0.02;   // ~2% padding vertically
-    final double avatarRadius = screenWidth * 0.1;        // Avatar radius 10% of screen width
-    final double titleFontSize = screenWidth * 0.06;      // Title font size ~6% of screen width
-    final double sectionTitleFontSize = screenWidth * 0.05; // Section title font size
+    final double horizontalPadding =
+        screenWidth * 0.04; // ~4% padding horizontally
+    final double verticalPadding =
+        screenHeight * 0.02; // ~2% padding vertically
+    final double avatarRadius =
+        screenWidth * 0.1; // Avatar radius 10% of screen width
+    final double titleFontSize =
+        screenWidth * 0.06; // Title font size ~6% of screen width
+    final double sectionTitleFontSize =
+        screenWidth * 0.05; // Section title font size
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -126,33 +131,39 @@ class StudentViewProfile extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  _buildInfoRow("Email Address", student.emailAddress, screenWidth),
+                  _buildInfoRow(
+                      "Admission Number", student.admissionNumber, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Mobile Number", student.mobileNumber, screenWidth),
+                  _buildInfoRow(
+                      "Class & Section", student.classSection, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Alternate Mobile", student.altMobileNumber, screenWidth),
-                  _buildDivider(),
-                  _buildInfoRow("Admission Number", student.admissionNumber, screenWidth),
-                  _buildDivider(),
-                  _buildInfoRow("Admission Date", student.admissionDate, screenWidth),
-                  _buildDivider(),
-                  _buildInfoRow("Branch", student.branch, screenWidth),
+                  _buildInfoRow(
+                      "Admission Date", student.admissionDate, screenWidth),
                   _buildDivider(),
                   _buildInfoRow("Session", student.session, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Class & Section", student.classSection, screenWidth),
+                  _buildInfoRow(
+                      "Email Address", student.emailAddress, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("House", student.house, screenWidth),
+                  _buildInfoRow(
+                      "Mobile Number", student.mobileNumber, screenWidth),
                   _buildDivider(),
                   _buildInfoRow("Father Name", student.fatherName, screenWidth),
                   _buildDivider(),
                   _buildInfoRow("Mother Name", student.motherName, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Parent Occupation", student.parentOccupation, screenWidth),
-                  _buildDivider(),
                   _buildInfoRow("Date of Birth", student.dob, screenWidth),
                   _buildDivider(),
+                  _buildInfoRow("Branch", student.branch, screenWidth),
+                  _buildDivider(),
                   _buildInfoRow("Gender", student.gender, screenWidth),
+                  _buildDivider(),
+                  _buildInfoRow("Alternate Mobile", student.altMobileNumber, screenWidth),
+                  _buildDivider(),
+                  _buildInfoRow("House", student.house, screenWidth),
+                  _buildDivider(),
+                  _buildInfoRow("Parent Occupation", student.parentOccupation,
+                      screenWidth),
                   _buildDivider(),
                   _buildInfoRow("Blood Group", student.bloodGroup, screenWidth),
                   _buildDivider(),
@@ -160,15 +171,20 @@ class StudentViewProfile extends StatelessWidget {
                   _buildDivider(),
                   _buildInfoRow("Religion", student.religion, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Aadhar Number", student.aadharNumber, screenWidth),
+                  _buildInfoRow(
+                      "Aadhar Number", student.aadharNumber, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Current Address", student.currentAddress, screenWidth),
+                  _buildInfoRow(
+                      "Current Address", student.currentAddress, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Permanent Address", student.permanentAddress, screenWidth),
+                  _buildInfoRow("Permanent Address", student.permanentAddress,
+                      screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Previous School", student.previousSchool, screenWidth),
+                  _buildInfoRow(
+                      "Previous School", student.previousSchool, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Previous Class", student.previousClass, screenWidth),
+                  _buildInfoRow(
+                      "Previous Class", student.previousClass, screenWidth),
                 ],
               ),
             ),
