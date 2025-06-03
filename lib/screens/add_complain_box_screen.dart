@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:school_management/model/Student.dart';
 import 'package:school_management/provider/complain_provider.dart';
 import 'package:school_management/provider/fee_provider.dart';
+import 'package:school_management/screens/view_student_complain.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/string_constants.dart';
@@ -16,250 +17,232 @@ class AddComplainBoxScreen extends StatefulWidget {
 
 class _AddComplainBoxScreenState extends State<AddComplainBoxScreen> {
   Student? selectedStudent;
-
   final TextEditingController _messageController = TextEditingController();
   final String parentId = "1";
-
-
-  String? getStudentId(String? selected) {
-    if (selected == null) return null;
-    final parts = selected.split('/');
-    if (parts.isNotEmpty) {
-      return parts[0].trim();
-    }
-    return null;
-  }
 
   @override
   void initState() {
     super.initState();
-    final parentId = 1;
-    Provider.of<FeeProvider>(context, listen: false).loadStudentNames(parentId);
-    Provider.of<ComplainProvider>(context, listen: false).fetchComplainList(parentId.toString());
+
+    // Delay the provider method until after the first build frame is completed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<FeeProvider>(context, listen: false).loadStudentNames(1);
+      Provider.of<ComplainProvider>(context, listen: false).fetchComplainList("1");
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
     final feeProvider = Provider.of<FeeProvider>(context);
     final complainProvider = Provider.of<ComplainProvider>(context);
-   // List<Object> studentList = feeProvider.students ?? [];
-    //final feeProvider = Provider.of<FeeProvider>(context);
     final List<Student> studentList = feeProvider.students;
 
     return Scaffold(
-      backgroundColor: AppColors.appColorGrey,
       appBar: AppBar(
-        title: const Text(
-          AppStrings.complain,
-          style: AppTextStyles.complain,
-        ),
+        title: const Text(AppStrings.complain),
         backgroundColor: AppColors.appColor,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.west, color: AppColors.white),
+        ),
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                color: AppColors.white,
-                child: Column(
-                  children: [
-                    Container(color: AppColors.appColor, height: 7),
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(AppStrings.mandatory),
-                          const SizedBox(height: 5),
-                          const Text(AppStrings.students),
-                          const SizedBox(height: 5),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            decoration: BoxDecoration(
-                              color: AppColors.appColorGrey,
-                              border: Border.all(color: AppColors.appColorGrey),
-                              borderRadius: BorderRadius.circular(4),
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '*',
+                              style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
                             ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<Student>(
-                                hint: const Text(AppStrings.selectStudent),
-                                value: selectedStudent,
-                                isExpanded: true,
-                                items: studentList.map((student) {
-                                  return DropdownMenuItem<Student>(
-                                    value: student,
-                                    child: Text(student.name), // ✅ `student.name` works now
-                                  );
-                                }).toList(),
-                                onChanged: (Student? value) {
-                                  setState(() {
-                                    selectedStudent = value; // ✅ Don't call `.toString()`
-                                  });
-                                },
-                              ),
-
+                            TextSpan(
+                              text: ' Mandatory fields',
+                              style: TextStyle(color: Colors.black),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          const Text(AppStrings.message),
-                          const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _messageController,
-                            maxLines: 4,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: AppColors.appColorGrey,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide.none,
-                              ),
-                              hintText: "",
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 12),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: 74,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.green,
-                                padding:
-                                const EdgeInsets.symmetric(vertical: 12),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                              onPressed: complainProvider.isLoading
-                                  ? null
-                                  : () async {
-                                final studentId = selectedStudent?.id.toString();
-                                final message = _messageController.text.trim();
-
-                                if (studentId == null || message.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text(AppStrings.pleaseSelect)),
-                                  );
-                                  return;
-                                }
-
-                                await complainProvider.sendComplain(
-                                  studentId: studentId,
-                                  parentId: parentId,
-                                  message: message,
-                                  context: context,
-                                );
-
-                                await complainProvider.fetchComplainList(parentId);
-
-                                _messageController.clear();
-                                setState(() {
-                                  selectedStudent = null;
-                                });
-                              },
-
-                              child: complainProvider.isLoading
-                                  ? const CircularProgressIndicator(
-                                color: Colors.white,
-                              )
-                                  : const Text(
-                                AppStrings.save,
-                                style: TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                height: 200,
-                color: AppColors.white,
-                child: Column(
-                  children: [
-                    Container(color: AppColors.appColor, height: 7),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return StatefulBuilder(
-                              builder: (context, setState) {
-                                final complaints = complainProvider.complains;
-
-                                if (complaints.isEmpty) {
-                                  return AlertDialog(
-                                    title: const Text(AppStrings.complaints),
-                                    content: const Text(AppStrings.noFound),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text(AppStrings.close),
-                                      ),
-                                    ],
-                                  );
-                                } else {
-                                  return AlertDialog(
-                                    title: const Text(AppStrings.complaints),
-                                    content: SizedBox(
-                                      width: double.maxFinite,
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: complaints.length,
-                                        itemBuilder: (context, index) {
-                                          final complaint = complaints[index];
-                                          return ListTile(
-                                            title: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(child: Text(complaint.message)),
-                                                IconButton(
-                                                  icon: const Icon(Icons.delete, color: Colors.red),
-                                                  onPressed: () async {
-                                                    await complainProvider.deleteComplain(parentId, complaint.id, context);
-                                                    setState(() {});
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('Close'),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        );
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.only(right: 150, top: 8),
-                        child: Text(
-                          AppStrings.viewComplain,
-                          style: AppTextStyles.hintStyle,
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 16),
+
+                      /// Student Label
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '* ',
+                              style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: AppStrings.students,
+                              style: TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+
+                      /// Student Dropdown
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.grey.shade300),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<Student>(
+                            hint: const Text(AppStrings.selectStudent),
+                            value: selectedStudent,
+                            isExpanded: true,
+                            items: studentList.map((student) {
+                              return DropdownMenuItem<Student>(
+                                value: student,
+                                child: Text(student.name),
+                              );
+                            }).toList(),
+                            onChanged: (Student? value) {
+                              setState(() {
+                                selectedStudent = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      /// Message Label with orange star
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '* ',
+                              style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: AppStrings.message,
+                              style: TextStyle(color: Colors.black, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+
+                      /// Message Box
+                      TextFormField(
+                        controller: _messageController,
+                        maxLines: 4,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(color: Colors.grey),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      /// Save Button
+                      SizedBox(
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.green,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          onPressed: complainProvider.isLoading
+                              ? null
+                              : () async {
+                            final studentId = selectedStudent?.id.toString();
+                            final message = _messageController.text.trim();
+
+                            if (studentId == null || message.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text(AppStrings.pleaseSelect)),
+                              );
+                              return;
+                            }
+
+                            await complainProvider.sendComplain(
+                              studentId: studentId,
+                              parentId: parentId,
+                              message: message,
+                              context: context,
+                            );
+
+                            await complainProvider.fetchComplainList(parentId);
+
+                            _messageController.clear();
+                            setState(() {
+                              selectedStudent = null;
+                            });
+                          },
+                          child: complainProvider.isLoading
+                              ? const CircularProgressIndicator(color: Colors.white)
+                              : const Text(
+                            AppStrings.save,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
+              const SizedBox(height: 20),
+
+              // Second Card (View Complaints)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.appColor,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ViewStudentComplain()),
+                      );
+                    },
+                    child: const Text(
+                      AppStrings.viewComplain,
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
+
             ],
           ),
         ),

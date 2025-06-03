@@ -9,22 +9,20 @@ class StudentViewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Fetch screen size info
     final size = MediaQuery.of(context).size;
     final screenWidth = size.width;
     final screenHeight = size.height;
 
-    // Define scaling factors based on screen size (adjust as needed)
     final double horizontalPadding =
-        screenWidth * 0.04; // ~4% padding horizontally
+        screenWidth * 0.04;
     final double verticalPadding =
-        screenHeight * 0.02; // ~2% padding vertically
+        screenHeight * 0.02;
     final double avatarRadius =
-        screenWidth * 0.1; // Avatar radius 10% of screen width
+        screenWidth * 0.1;
     final double titleFontSize =
-        screenWidth * 0.06; // Title font size ~6% of screen width
+        screenWidth * 0.06;
     final double sectionTitleFontSize =
-        screenWidth * 0.05; // Section title font size
+        screenWidth * 0.05;
 
     return Scaffold(
       backgroundColor: Colors.grey[200],

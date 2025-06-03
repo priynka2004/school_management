@@ -29,11 +29,11 @@ class _DashboardStudentState extends State<DashboardStudent> {
             Stack(
               children: [
                 Center(
-                  child: Image.asset(
+                  child:   Image.asset(
                     AppImagesConst.vectorImagePath,
-                    // width: 432.34,
-                    // height: 180,
-                    fit: BoxFit.contain,
+                    height: MediaQuery.of(context).size.height * 0.25, // 25% of screen height
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
@@ -47,20 +47,24 @@ class _DashboardStudentState extends State<DashboardStudent> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 60,left: 75),
-                  child: Image.asset(AppImagesConst.vectorImagePath2),
+                  child: Image.asset(AppImagesConst.vectorImagePath2,
+                    height: 260,
+                    width: 240,
+                    fit: BoxFit.contain,),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 90),
+                  padding: const EdgeInsets.only(top: 112),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 105),
+                      padding: const EdgeInsets.only(left: 112),
                       child: Image.asset(
                         AppImagesConst.emojiImagePath,
-                        width: 144.66,
-                        height: 144.66,
+                        width: MediaQuery.of(context).size.width * 0.4,   // 40% of screen width
+                        height: MediaQuery.of(context).size.width * 0.4,  // width के proportion में height (square shape)
                         fit: BoxFit.contain,
                       ),
+
                     ),
                   ),
                 ),
@@ -108,7 +112,7 @@ class _DashboardStudentState extends State<DashboardStudent> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StudentAttendanceReport()), // or your actual screen class
+                                builder: (context) => StudentAttendanceReport()),
                           );
                         },
                         child: Image.asset(AppImagesConst.guestImagePath),

@@ -39,16 +39,12 @@ class _EditParentProfileSheetState extends State<EditParentProfileSheet> {
     emailController.dispose();
     passwordController.dispose();
     addressController.dispose();
-    mobileController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ParentProfileProvider>(context);
-    final media = MediaQuery.of(context);
-    final screenWidth = media.size.width;
-    final screenHeight = media.size.height;
 
     return Material(
       child: SingleChildScrollView(
@@ -56,29 +52,19 @@ class _EditParentProfileSheetState extends State<EditParentProfileSheet> {
           children: [
             Stack(
               children: [
-                Image.asset(
-                  AppImagesConst.vectorImagePath,
-                  width: screenWidth,
-                  fit: BoxFit.cover,
-                ),
+                Image.asset(AppImagesConst.vectorImagePath),
                 Padding(
-                  padding: EdgeInsets.only(top: screenHeight * 0.04),
+                  padding: const EdgeInsets.only(top: 30),
                   child: Center(
                     child: Stack(
                       children: [
-                        Image.asset(
-                          AppImagesConst.vectorImagePath2,
-                          width: screenWidth * 0.6,
-                          fit: BoxFit.contain,
-                        ),
-                        Positioned(
-                          top: screenHeight * 0.06,
-                          left: screenWidth * 0.1,
+                        Image.asset(AppImagesConst.vectorImagePath2),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50, left: 40),
                           child: Image.asset(
                             AppImagesConst.rectangleImagePath,
-                            height: screenHeight * 0.15,
-                            width: screenWidth * 0.4,
-                            fit: BoxFit.contain,
+                            height: 108,
+                            width: 133,
                           ),
                         ),
                       ],
@@ -87,40 +73,33 @@ class _EditParentProfileSheetState extends State<EditParentProfileSheet> {
                 ),
               ],
             ),
-            SizedBox(height: screenHeight * 0.02),
+            SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.only(
-                bottom: media.viewInsets.bottom,
-                top: screenHeight * 0.02,
-                left: screenWidth * 0.05,
-                right: screenWidth * 0.05,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                top: 20,
+                left: 20,
+                right: 20,
               ),
               child: Column(
                 children: [
                   TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(labelText: "Name"),
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
+                      controller: nameController,
+                      decoration: InputDecoration(labelText: "Name")),
                   TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(labelText: "Email"),
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
+                      controller: emailController,
+                      decoration: InputDecoration(labelText: "Email")),
                   TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(labelText: "Password"),
-                  ),
-                  SizedBox(height: screenHeight * 0.015),
+                      controller: passwordController,
+                      decoration: InputDecoration(labelText: "Password")),
                   TextField(
-                    controller: addressController,
-                    decoration: InputDecoration(labelText: "Address"),
-                  ),
-                  SizedBox(height: screenHeight * 0.03),
+                      controller: addressController,
+                      decoration: InputDecoration(labelText: "Address")),
+                  SizedBox(height: 20),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 45),
-                      backgroundColor: AppColors.black,
+                      minimumSize: const Size.fromHeight(45),
+                      backgroundColor: AppColors.appColor,
                       foregroundColor: AppColors.white,
                     ),
                     onPressed: () async {
@@ -135,9 +114,8 @@ class _EditParentProfileSheetState extends State<EditParentProfileSheet> {
                       final success = await provider.updateProfile(updated);
                       if (success && context.mounted) {
                         Navigator.pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Profile updated successfully")),
-                        );
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Profile updated successfully")));
                       }
                     },
                     child: Text(
