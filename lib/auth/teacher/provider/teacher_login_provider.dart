@@ -9,6 +9,14 @@ class TeacherLoginProvider with ChangeNotifier {
   String? error;
   bool _isLoading = false;
 
+  bool _isCheckingLoginStatus = true;
+  bool get isCheckingLoginStatus => _isCheckingLoginStatus;
+
+  bool _isLoggedIn = false;
+
+  bool get isLoggedIn => _isLoggedIn;
+
+
   TeacherModel? get teacher => _teacher;
   bool get isLoading => _isLoading;
 
@@ -24,6 +32,7 @@ class TeacherLoginProvider with ChangeNotifier {
         _teacher = result;
 
         final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('student_is_logged_in', true);
         await prefs.setInt('teacherId', result.id ?? 0);
         await prefs.setInt('branchId', result.branchId ?? 0);
 
@@ -68,6 +77,28 @@ class TeacherLoginProvider with ChangeNotifier {
       return false;
     }
   }
+
+
+  Future<void> checkLoginStatus() async {
+    _isCheckingLoginStatus = true;
+    notifyListeners();
+
+    final prefs = await SharedPreferences.getInstance();
+    _isLoggedIn = prefs.getBool('student_is_logged_in') ?? false;
+
+    _isCheckingLoginStatus = false;
+    notifyListeners();
+  }
+
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('student_is_logged_in');
+    _isLoggedIn = false;
+    notifyListeners();
+  }
+
+
 
 }
 

@@ -26,33 +26,63 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Column(
         children: [
           Stack(
             children: [
-              Image.asset(AppImagesConst.vectorImagePath),
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: Center(
-                  child: Image.asset(
-                    AppImagesConst.studentImagePath,
-                    height: 90,
-                    width: 90,
-                  ),
+              SizedBox(
+                height: screenHeight * 0.22,
+                width: screenWidth,
+                child: Image.asset(
+                  AppImagesConst.vectorImagePath,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: screenHeight * 0.07,
+                left: screenWidth * 0.5 - (screenWidth * 0.12),
+                child: Image.asset(
+                  AppImagesConst.studentImagePath,
+                  height: screenHeight * 0.11,
+                  width: screenWidth * 0.24,
                 ),
               ),
             ],
           ),
+
+          SizedBox(height: screenHeight * 0.08),
+
+          // Middle rectangle image
+          Center(
+            child: Image.asset(
+              AppImagesConst.rectangleImagePath,
+              height: screenHeight * 0.28,
+              width: screenWidth * 0.4,
+              fit: BoxFit.contain,
+            ),
+          ),
+
           const Spacer(),
-          Image.asset(AppImagesConst.rectangleImagePath,
-              height: 212, width: 172),
-          const Spacer(),
+
+          // Bottom Stack with black vector and powered by text
           Stack(
             children: [
-              Image.asset(AppImagesConst.blackVectorImagePath),
-              const Padding(
-                padding: EdgeInsets.only(top: 40),
+              SizedBox(
+                width: screenWidth,
+                height: screenHeight * 0.18,
+                child: Image.asset(
+                  AppImagesConst.blackVectorImagePath,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Positioned(
+                top: screenHeight * 0.06,
+                left: 0,
+                right: 0,
                 child: Center(
                   child: Text(
                     AppStrings.poweredBy,

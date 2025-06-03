@@ -4,6 +4,7 @@ import 'package:school_management/auth/parent/model/parent_profile.dart';
 import 'package:school_management/auth/parent/provider/parent_profile_provider.dart';
 import 'package:school_management/auth/parent/screen/edit_parent_profile_sheet.dart';
 import 'package:school_management/utils/app_text_styles.dart';
+import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
 
 class ParentProfileScreen extends StatefulWidget {
@@ -45,20 +46,35 @@ class _ParentProfileScreenState extends State<ParentProfileScreen> {
             children: [
               Stack(
                 children: [
-                  Image.asset(AppImagesConst.vectorImagePath),
+                  Image.asset(
+                    AppImagesConst.vectorImagePath,
+                    height: MediaQuery.of(context).size.height * 0.25, // 25% of screen height
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+
+
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Center(
                       child: Stack(
                         children: [
-                          Image.asset(AppImagesConst.vectorImagePath2),
+                          Image.asset(
+                            AppImagesConst.vectorImagePath2,
+                            height: 260,
+                            width: 240,
+                            fit: BoxFit.contain,
+                          ),
+
                           Padding(
-                            padding: const EdgeInsets.only(top: 50, left: 40),
+                            padding: const EdgeInsets.only(top: 60, left: 50),
                             child: Image.asset(
                               AppImagesConst.rectangleImagePath,
-                              height: 108,
-                              width: 133,
+                              height: MediaQuery.of(context).size.height * 0.16, // 16% of screen height
+                              width: MediaQuery.of(context).size.width * 0.35,   // 35% of screen width
+                              fit: BoxFit.contain,
                             ),
+
                           ),
                         ],
                       ),
@@ -76,7 +92,7 @@ class _ParentProfileScreenState extends State<ParentProfileScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: AppColors.appColor,
                     minimumSize: Size(double.infinity, 50),
                   ),
                   onPressed: () {

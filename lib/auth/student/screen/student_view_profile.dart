@@ -9,6 +9,18 @@ class StudentViewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Fetch screen size info
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
+    // Define scaling factors based on screen size (adjust as needed)
+    final double horizontalPadding = screenWidth * 0.04;  // ~4% padding horizontally
+    final double verticalPadding = screenHeight * 0.02;   // ~2% padding vertically
+    final double avatarRadius = screenWidth * 0.1;        // Avatar radius 10% of screen width
+    final double titleFontSize = screenWidth * 0.06;      // Title font size ~6% of screen width
+    final double sectionTitleFontSize = screenWidth * 0.05; // Section title font size
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -23,11 +35,11 @@ class StudentViewProfile extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(horizontalPadding),
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(horizontalPadding),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -43,32 +55,39 @@ class StudentViewProfile extends StatelessWidget {
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 40,
+                    radius: avatarRadius,
                     backgroundImage: student.photo.isNotEmpty
                         ? NetworkImage(student.photo) as ImageProvider
                         : const AssetImage('assets/images/user.png'),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: screenWidth * 0.04),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           student.name,
-                          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: titleFontSize,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: screenHeight * 0.008),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.03,
+                            vertical: screenHeight * 0.005,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.green.shade100,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Active',
                             style: TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.w600,
+                              fontSize: screenWidth * 0.035,
                             ),
                           ),
                         ),
@@ -79,7 +98,7 @@ class StudentViewProfile extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Section Title
             Align(
@@ -87,79 +106,82 @@ class StudentViewProfile extends StatelessWidget {
               child: Text(
                 "Student Details",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: sectionTitleFontSize,
                   fontWeight: FontWeight.bold,
                   color: AppColors.appColor,
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: screenHeight * 0.015),
 
             // Detail Fields
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+              padding: EdgeInsets.symmetric(
+                vertical: verticalPadding,
+                horizontal: horizontalPadding * 0.5,
+              ),
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 children: [
-                  _buildInfoRow("Email Address", student.emailAddress),
+                  _buildInfoRow("Email Address", student.emailAddress, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Mobile Number", student.mobileNumber),
+                  _buildInfoRow("Mobile Number", student.mobileNumber, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Alternate Mobile", student.altMobileNumber),
+                  _buildInfoRow("Alternate Mobile", student.altMobileNumber, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Admission Number", student.admissionNumber),
+                  _buildInfoRow("Admission Number", student.admissionNumber, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Admission Date", student.admissionDate),
+                  _buildInfoRow("Admission Date", student.admissionDate, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Branch", student.branch),
+                  _buildInfoRow("Branch", student.branch, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Session", student.session),
+                  _buildInfoRow("Session", student.session, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Class & Section", student.classSection),
+                  _buildInfoRow("Class & Section", student.classSection, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("House", student.house),
+                  _buildInfoRow("House", student.house, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Father Name", student.fatherName),
+                  _buildInfoRow("Father Name", student.fatherName, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Mother Name", student.motherName),
+                  _buildInfoRow("Mother Name", student.motherName, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Parent Occupation", student.parentOccupation),
+                  _buildInfoRow("Parent Occupation", student.parentOccupation, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Date of Birth", student.dob),
+                  _buildInfoRow("Date of Birth", student.dob, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Gender", student.gender),
+                  _buildInfoRow("Gender", student.gender, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Blood Group", student.bloodGroup),
+                  _buildInfoRow("Blood Group", student.bloodGroup, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Category", student.category),
+                  _buildInfoRow("Category", student.category, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Religion", student.religion),
+                  _buildInfoRow("Religion", student.religion, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Aadhar Number", student.aadharNumber),
+                  _buildInfoRow("Aadhar Number", student.aadharNumber, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Current Address", student.currentAddress),
+                  _buildInfoRow("Current Address", student.currentAddress, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Permanent Address", student.permanentAddress),
+                  _buildInfoRow("Permanent Address", student.permanentAddress, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Previous School", student.previousSchool),
+                  _buildInfoRow("Previous School", student.previousSchool, screenWidth),
                   _buildDivider(),
-                  _buildInfoRow("Previous Class", student.previousClass),
+                  _buildInfoRow("Previous Class", student.previousClass, screenWidth),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.025),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInfoRow(String title, String value) {
+  Widget _buildInfoRow(String title, String value, double screenWidth) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.015),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -167,9 +189,9 @@ class StudentViewProfile extends StatelessWidget {
             flex: 4,
             child: Text(
               "$title:",
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: screenWidth * 0.035,
               ),
             ),
           ),
@@ -177,7 +199,7 @@ class StudentViewProfile extends StatelessWidget {
             flex: 6,
             child: Text(
               value,
-              style: const TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: screenWidth * 0.035),
             ),
           ),
         ],
