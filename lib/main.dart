@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:school_management/auth/parent/provider/parent_profile_provider.dart';
 import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
 import 'package:school_management/auth/student/provider/student_login_provider.dart';
+import 'package:school_management/auth/teacher/provider/teacher_profile_provider.dart';
 import 'package:school_management/provider/complain_provider.dart';
 import 'package:school_management/provider/fee_provider.dart';
 import 'package:school_management/provider/leave_list_provider.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StudentDashboardProvider()),
         ChangeNotifierProvider(create: (_) => ViewNoticeProvider()),
         ChangeNotifierProvider(create: (_) => StudentAttendanceReportProvider()),
+        ChangeNotifierProvider(create: (_) => TeacherProfileProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
