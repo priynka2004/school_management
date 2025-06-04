@@ -10,6 +10,7 @@ import 'package:school_management/screens/add_leave_screen.dart';
 import 'package:school_management/screens/leave_list.dart';
 import 'package:school_management/screens/student_attendance.dart';
 import 'package:school_management/screens/teacher/dashboard_teacher_screen.dart';
+import 'package:school_management/screens/teacher/teacher_live_list_screen.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/screens/view_notice_screen.dart';
 import 'package:school_management/utils/colors.dart';
@@ -159,7 +160,12 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const LeaveList()),
+                          MaterialPageRoute(
+                            builder: (_) => TeacherLeaveListScreen(
+                              teacherID: 1,
+                              branchID: 1,
+                            ),
+                          ),
                         );
                       },
                     ),

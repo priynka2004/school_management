@@ -15,6 +15,8 @@ import 'package:school_management/provider/view_notice_provider.dart';
 
 import 'package:school_management/screens/splash_screen.dart';
 
+import 'provider/teacher_leave_provider.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ViewNoticeProvider()),
         ChangeNotifierProvider(create: (_) => StudentAttendanceReportProvider()),
         ChangeNotifierProvider(create: (_) => TeacherProfileProvider()),
+        ChangeNotifierProvider(create: (_) => TeacherLeaveProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
