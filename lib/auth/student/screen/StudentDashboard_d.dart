@@ -12,7 +12,6 @@ class StudentDashboardD extends StatefulWidget {
 }
 
 class _StudentDashboardDState extends State<StudentDashboardD> {
-
   @override
   void initState() {
     super.initState();
@@ -23,8 +22,21 @@ class _StudentDashboardDState extends State<StudentDashboardD> {
 
   @override
   Widget build(BuildContext context) {
+    // MediaQuery for screen size
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
+    final screenHeight = media.size.height;
+
+    // Adjust sizes based on screen width
+    final avatarRadius = screenWidth * 0.07; // ~7% of screen width
+    final paddingAll = screenWidth * 0.03; // ~3% padding
+    final buttonWidth = screenWidth * 0.4; // ~40% of screen width
+    final fontSizeTitle = screenWidth * 0.045; // title font size
+    final fontSizeButton = screenWidth * 0.038; // button text font size
+    final spacingVertical = screenHeight * 0.015;
+
     return Scaffold(
-        backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         title: const Text('Student Dashboard'),
         backgroundColor: AppColors.appColor,
@@ -36,7 +48,7 @@ class _StudentDashboardDState extends State<StudentDashboardD> {
         ),
         foregroundColor: Colors.white,
       ),
-      body:Consumer<StudentDashboardProvider>(
+      body: Consumer<StudentDashboardProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -47,43 +59,48 @@ class _StudentDashboardDState extends State<StudentDashboardD> {
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(paddingAll),
             itemCount: provider.students.length,
             itemBuilder: (context, index) {
               final student = provider.students[index];
               return Card(
-                margin: const EdgeInsets.symmetric(vertical: 10),
+                margin: EdgeInsets.symmetric(vertical: spacingVertical),
                 elevation: 4,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: EdgeInsets.all(paddingAll),
                   child: Column(
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CircleAvatar(
-                            radius: 30,
+                          CircleAvatar(
+                            radius: avatarRadius,
                             backgroundColor: Colors.blueGrey,
                             child: Icon(
                               Icons.person,
-                              size: 30,
+                              size: avatarRadius * 1.2,
                               color: Colors.white,
                             ),
                           ),
-
-                          const SizedBox(width: 12),
+                          SizedBox(width: screenWidth * 0.04),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   student.name,
-                                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                    fontSize: fontSizeTitle,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const SizedBox(height: 6),
+                                SizedBox(height: spacingVertical * 0.6),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: screenWidth * 0.03,
+                                    vertical: screenHeight * 0.005,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.green.shade100,
                                     borderRadius: BorderRadius.circular(20),
@@ -98,25 +115,25 @@ class _StudentDashboardDState extends State<StudentDashboardD> {
                           )
                         ],
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: spacingVertical * 1.5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildDetail('Class & Section', student.classSection),
-                          _buildDetail('Admission No.', student.admissionNumber),
+                          _buildDetail('Class & Section', student.classSection, fontSizeTitle * 0.85),
+                          _buildDetail('Admission No.', student.admissionNumber, fontSizeTitle * 0.85),
                         ],
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: spacingVertical),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildDetail('Mobile No.', student.mobileNumber),
-                          _buildDetail('Date of Birth', student.dob),
+                          _buildDetail('Mobile No.', student.mobileNumber, fontSizeTitle * 0.85),
+                          _buildDetail('Date of Birth', student.dob, fontSizeTitle * 0.85),
                         ],
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: spacingVertical * 1.5),
                       SizedBox(
-                        width: 150,
+                        width: buttonWidth,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
@@ -126,18 +143,19 @@ class _StudentDashboardDState extends State<StudentDashboardD> {
                               ),
                             );
                           },
-
-
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.appColor,
-                            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                            padding: EdgeInsets.symmetric(
+                              vertical: screenHeight * 0.015,
+                              horizontal: screenWidth * 0.03,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'View Profile',
-                            style: TextStyle(fontSize: 14, color: AppColors.black),
+                            style: TextStyle(fontSize: fontSizeButton, color: AppColors.black),
                           ),
                         ),
                       ),
@@ -148,21 +166,18 @@ class _StudentDashboardDState extends State<StudentDashboardD> {
             },
           );
         },
-      )
-
-
+      ),
     );
   }
-  Widget _buildDetail(String title, String value) {
+
+  Widget _buildDetail(String title, String value, double fontSize) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 4),
-        Text(value),
+        Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize)),
+        SizedBox(height: 4),
+        Text(value, style: TextStyle(fontSize: fontSize * 0.9)),
       ],
     );
   }
-
 }
-

@@ -61,4 +61,19 @@ class LeaveItem {
       date: json['Date'] ?? '',
     );
   }
+
+  // ✅ ADD THIS METHOD BELOW
+  Map<String, dynamic> toJson() {
+    return {
+      'ID': id,
+      'StudentID': studentId,
+      'ParentID': parentId,
+      'StudentName': studentName,
+      'FromDate': fromDate,
+      'ToDate': toDate,
+      'Reason': reason,
+      'Status': status,
+      'Date': date,
+    };
+  }
 }

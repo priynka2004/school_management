@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:school_management/auth/student/screen/StudentDashboard_d.dart';
 import 'package:school_management/auth/teacher/screen/teacher_change_password_screen.dart';
 import 'package:school_management/screens/add_complain_box_screen.dart';
@@ -7,10 +8,12 @@ import 'package:school_management/screens/student_attendance.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/screens/view_notice_screen.dart';
 import 'package:school_management/utils/colors.dart';
+import '../auth/student/provider/student_login_provider.dart';
+import '../screens/ChooseYourOptionScreen.dart';
 import '../screens/add_leave_screen.dart';
 
 class StudentDrawer extends StatefulWidget {
-  const StudentDrawer({Key? key}) : super(key: key);
+  const StudentDrawer({super.key});
 
   @override
   State<StudentDrawer> createState() => _StudentDrawerState();
@@ -156,7 +159,17 @@ class _StudentDrawerState extends State<StudentDrawer> {
               height: 32,
             ),
 
-            _buildDrawerTile(Icons.logout, 'Sign Out'),
+            _buildDrawerTile(Icons.logout, 'Sign Out', onTap: () async {
+              final provider = Provider.of<StudentLoginProvider>(context, listen: false);
+              await provider.logout();
+
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => const ChooseYourOptionScreen()),
+                    (route) => false,
+              );
+            }),
+
           ],
         ),
       ),

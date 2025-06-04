@@ -53,7 +53,7 @@ class FeeService {
     required String sessionId,
   }) async {
     final url = Uri.parse(
-      "https://mssapi.checkour.work/api/parent/studentfee/StudentID/1/SessionID/1",
+      "https://mssapi.checkour.work/api/parent/studentfee/StudentID/$studentId/SessionID/$sessionId",
     );
 
     print("Calling Fee API: $url");

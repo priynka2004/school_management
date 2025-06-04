@@ -99,7 +99,7 @@ class _EditParentProfileSheetState extends State<EditParentProfileSheet> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(45),
-                      backgroundColor: AppColors.black,
+                      backgroundColor: AppColors.appColor,
                       foregroundColor: AppColors.white,
                     ),
                     onPressed: () async {

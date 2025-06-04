@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+
 import 'package:school_management/auth/parent/provider/parent_profile_provider.dart';
 import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
+import 'package:school_management/auth/student/provider/student_login_provider.dart';
 import 'package:school_management/provider/complain_provider.dart';
 import 'package:school_management/provider/fee_provider.dart';
 import 'package:school_management/provider/leave_list_provider.dart';
 import 'package:school_management/provider/student_addendance_report_provider.dart';
 import 'package:school_management/provider/student_dashboard_provider.dart';
 import 'package:school_management/provider/view_notice_provider.dart';
-import 'package:school_management/screens/add_complain_box_screen.dart';
+
 import 'package:school_management/screens/splash_screen.dart';
-import 'auth/student/provider/student_login_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,17 +30,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TeacherLoginProvider()),
         ChangeNotifierProvider(create: (_) => ComplainProvider()),
         ChangeNotifierProvider(create: (_) => ParentProfileProvider()),
-        ChangeNotifierProvider(create: (_) => FeeProvider()),
         ChangeNotifierProvider(create: (_) => LeaveListProvider()),
         ChangeNotifierProvider(create: (_) => StudentDashboardProvider()),
-        ChangeNotifierProvider(create: (_) => TeacherLoginProvider()),
-        ChangeNotifierProvider(create: (_) => ComplainProvider()),
         ChangeNotifierProvider(create: (_) => ViewNoticeProvider()),
         ChangeNotifierProvider(create: (_) => StudentAttendanceReportProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'School Management',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,

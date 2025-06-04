@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:school_management/auth/student/screen/StudentDashboard_d.dart';
-import 'package:school_management/screens/add_complain_box_screen.dart';
-import 'package:school_management/screens/view_fee_screen.dart';
+import 'package:school_management/screens/dashboard_student.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
@@ -26,26 +24,43 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<StudentLoginProvider>(context);
-
+    final media = MediaQuery.of(context);
+    final screenHeight = media.size.height;
+    final screenWidth = media.size.width;
+    if (loginProvider.isCheckingLoginStatus) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                Image.asset(AppImagesConst.vectorImagePath),
+                Image.asset(
+                  AppImagesConst.vectorImagePath,
+                  width: screenWidth,
+                  fit: BoxFit.cover,
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30),
+                  padding: EdgeInsets.only(top: screenHeight * 0.04),
                   child: Center(
                     child: Stack(
                       children: [
-                        Image.asset(AppImagesConst.vectorImagePath2),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50, left: 40),
+                        Image.asset(
+                          AppImagesConst.vectorImagePath2,
+                          width: screenWidth * 0.6,
+                          fit: BoxFit.contain,
+                        ),
+                        Positioned(
+                          top: screenHeight * 0.06,
+                          left: screenWidth * 0.1,
                           child: Image.asset(
                             AppImagesConst.rectangleImagePath,
-                            height: 108,
-                            width: 133,
+                            height: screenHeight * 0.15,
+                            width: screenWidth * 0.4,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ],
@@ -54,18 +69,18 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: screenHeight * 0.03),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.06),
               child: Column(
                 children: [
                   TextField(
                     controller: _mobileController,
                     keyboardType: TextInputType.phone,
                     maxLength: 10,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: AppStrings.mobile,
-                      suffixIcon: Icon(Icons.person),
+                      suffixIcon: const Icon(Icons.person),
                       counterText: '', // Hide the character counter
                     ),
                     inputFormatters: [
@@ -73,8 +88,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                       FilteringTextInputFormatter.digitsOnly,
                     ],
                   ),
-
-                  const SizedBox(height: 20),
+                  SizedBox(height: screenHeight * 0.025),
                   TextField(
                     controller: _passwordController,
                     obscureText: _obscurePassword,
@@ -94,7 +108,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: screenHeight * 0.05),
                   loginProvider.isLoading
                       ? const CircularProgressIndicator()
                       : ElevatedButton(
@@ -102,28 +116,31 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                       final mobile = _mobileController.text.trim();
                       final password = _passwordController.text.trim();
 
-                      final success = await loginProvider.login(mobile: mobile, password: password);
+                      final success = await loginProvider.login(
+                          mobile: mobile, password: password);
 
                       if (context.mounted) {
                         if (success) {
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => const StudentDashboardD()),
+                            MaterialPageRoute(
+                                builder: (_) =>
+                                const DashboardStudent()),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(loginProvider.error ?? "Invalid mobile number or password"),
+                              content: Text(loginProvider.error ??
+                                  "Invalid mobile number or password"),
                               backgroundColor: Colors.red,
                             ),
                           );
-
                         }
                       }
                     },
-
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(45),
+                      minimumSize:
+                      Size(double.infinity, screenHeight * 0.065),
                       backgroundColor: AppColors.black,
                       foregroundColor: AppColors.white,
                     ),
@@ -132,7 +149,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                       style: AppTextStyles.loginButton,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: screenHeight * 0.015),
                   const Text(
                     AppStrings.forgotPassword,
                     style: AppTextStyles.forgotPassword,
@@ -145,5 +162,4 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
       ),
     );
   }
-
 }

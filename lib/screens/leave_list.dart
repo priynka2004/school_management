@@ -4,7 +4,6 @@ import 'package:school_management/provider/leave_list_provider.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/widget/student_leave_item.dart';
 
-
 class LeaveList extends StatefulWidget {
   const LeaveList({super.key});
 
@@ -14,6 +13,7 @@ class LeaveList extends StatefulWidget {
 
 class _LeaveListState extends State<LeaveList> {
   String dropdownValue = '10';
+  bool _initialized = false;
   final TextEditingController _searchController = TextEditingController();
 
 
@@ -22,17 +22,43 @@ class _LeaveListState extends State<LeaveList> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<LeaveListProvider>(context, listen: false).fetchLeaveList();
-    });
+
+    Future.microtask(() =>
+        Provider.of<LeaveListProvider>(context, listen: false).fetchLeaveList()
+    );
   }
+
 
   void _filterSearch(String query) {
-    setState(() {
+    final leaveProvider = Provider.of<LeaveListProvider>(context, listen: false);
+    final allLeaves = leaveProvider.leaveList;
 
-    });
+    if (query.isEmpty) {
+      _filteredStudents = allLeaves.map((leave) => leave.toJson()).toList();
+    } else {
+      _filteredStudents = allLeaves.where((leave) {
+        final studentName = leave.studentName.toLowerCase();
+        final reason = leave.reason.toLowerCase();
+        final searchLower = query.toLowerCase();
+        return studentName.contains(searchLower) || reason.contains(searchLower);
+      }).map((leave) => leave.toJson()).toList();
+    }
+    Provider.of<LeaveListProvider>(context);
+    setState(() {});
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      Provider.of<LeaveListProvider>(context, listen: false)
+          .fetchLeaveList()
+          .then((_) {
+        _filterSearch(dropdownValue);
+      });
+      _initialized = true;
+    }
+  }
 
 
   @override
@@ -127,9 +153,13 @@ class _LeaveListState extends State<LeaveList> {
                       final leaveItem = leaveProvider.leaveList[index];
 
                       return StudentLeaveItem(
-                        leaveItem: leaveItem,
-                        onEdit: () {},
-                        onDelete: () {},
+                        leaveItem: leaveItem, // Ensure this is the correct LeaveItem type
+                        onEdit: () {
+                          // Edit logic here
+                        },
+                        onDelete: () {
+                          // Delete logic here
+                        },
                         student: {}, // optional
                       );
                     },
@@ -170,10 +200,3 @@ class _LeaveListState extends State<LeaveList> {
     );
   }
 }
-
-
-
-
-
-
-
