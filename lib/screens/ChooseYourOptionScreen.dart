@@ -6,6 +6,7 @@ import 'package:school_management/auth/parent/screen/parent_profile_screen.dart'
 import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
 import 'package:school_management/auth/teacher/screen/teacher_login_screen.dart';
 import 'package:school_management/screens/dashboard_student.dart';
+import 'package:school_management/screens/teacher/dashboard_teacher_screen.dart';
 import 'package:school_management/utils/app_text_styles.dart';
 import 'package:school_management/utils/colors.dart';
 import 'package:school_management/utils/images_const.dart';
@@ -118,7 +119,7 @@ class _ChooseYourOptionScreenState extends State<ChooseYourOptionScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => const DashboardStudent()),
+                            builder: (_) => const DashboardTeacherScreen()),
                       );
                     } else {
                       Navigator.push(
