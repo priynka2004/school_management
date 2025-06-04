@@ -288,7 +288,6 @@ class _ViewFeeScreenState extends State<ViewFeeScreen> {
 
 }
 
-
 class _TableHeaderCell extends StatelessWidget {
   final String text;
   const _TableHeaderCell(this.text);
