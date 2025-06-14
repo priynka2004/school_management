@@ -45,6 +45,7 @@ class ComplainService {
       if (jsonResponse.containsKey('data') &&
           jsonResponse['data'] is Map &&
           jsonResponse['data'].containsKey('data')) {
+        print("Raw complaint response: ${response.body}");
         final List<dynamic> jsonData = jsonResponse['data']['data'];
         return jsonData.map((e) => ComplainModel.fromJson(e)).toList();
       } else {

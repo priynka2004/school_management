@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:school_management/auth/student/screen/student_view_profile.dart';
-import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
-import 'package:school_management/auth/teacher/provider/teacher_profile_provider.dart';
 import 'package:school_management/auth/teacher/screen/teacher_profile_view_screen.dart';
-import 'package:school_management/provider/student_dashboard_provider.dart';
 import 'package:school_management/utils/colors.dart';
+import '../provider/teacher_profile_provider.dart';
 
 class TeacherProfileScreen extends StatefulWidget {
   final int teacherId;
@@ -22,48 +19,31 @@ class TeacherProfileScreen extends StatefulWidget {
 }
 
 class _TeacherProfileScreenState extends State<TeacherProfileScreen> {
-
   @override
   void initState() {
     super.initState();
 
-    // Use the parameters passed to this screen, not from loginProvider again
-    final teacherId = widget.teacherId;
-    final branchId = widget.branchId;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final teacherId = widget.teacherId;
+      final branchId = widget.branchId;
 
-    if (teacherId != 0 && branchId != 0) {
-      Provider.of<TeacherProfileProvider>(context, listen: false).loadTeacher(teacherId, branchId);
-    } else {
-      // Handle error - IDs not available
-      print('TeacherId or BranchId is zero');
-    }
+      if (teacherId != 0 && branchId != 0) {
+        Provider.of<TeacherProfileProvider>(context, listen: false)
+            .loadTeacher(teacherId, branchId);
+      }
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
-    // MediaQuery for screen size
-    final media = MediaQuery.of(context);
-    final screenWidth = media.size.width;
-    final screenHeight = media.size.height;
-
-    // Adjust sizes based on screen width
-    final avatarRadius = screenWidth * 0.07; // ~7% of screen width
-    final paddingAll = screenWidth * 0.03; // ~3% padding
-    final buttonWidth = screenWidth * 0.4; // ~40% of screen width
-    final fontSizeTitle = screenWidth * 0.045; // title font size
-    final fontSizeButton = screenWidth * 0.038; // button text font size
-    final spacingVertical = screenHeight * 0.015;
-
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Teacher Dashboard'),
+        title: const Text('view student'),
         backgroundColor: AppColors.appColor,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.west, color: AppColors.white),
         ),
         foregroundColor: Colors.white,
@@ -75,142 +55,117 @@ class _TeacherProfileScreenState extends State<TeacherProfileScreen> {
           }
 
           if (provider.teacher.isEmpty) {
-            return const Center(child: Text("No Teacher found"));
+            return const Center(child: Text("No view student found"));
           }
 
-          return ListView.builder(
-            padding: EdgeInsets.all(paddingAll),
-            itemCount: provider.teacher.length,
-            itemBuilder: (context, index) {
-              final teacher = provider.teacher[index];
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: spacingVertical),
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: EdgeInsets.all(paddingAll),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: avatarRadius,
-                            backgroundColor: Colors.blueGrey,
-                            child: Icon(
-                              Icons.person,
-                              size: avatarRadius * 1.2,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(width: screenWidth * 0.04),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  teacher.name,
-                                  style: TextStyle(
-                                    fontSize: fontSizeTitle,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: spacingVertical * 0.6),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: screenWidth * 0.03,
-                                    vertical: screenHeight * 0.005,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green.shade100,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: const Text(
-                                    'Active',
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: spacingVertical * 1.5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildDetail('Class & Section', teacher.classSection,
-                              fontSizeTitle * 0.85),
-                          _buildDetail('Admission No.', teacher.admissionNumber,
-                              fontSizeTitle * 0.85),
-                        ],
-                      ),
-                      SizedBox(height: spacingVertical),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildDetail('Mobile No.', teacher.mobileNumber,
-                              fontSizeTitle * 0.85),
-                          _buildDetail('Date of Birth', teacher.dob,
-                              fontSizeTitle * 0.85),
-                        ],
-                      ),
-                      SizedBox(height: spacingVertical * 1.5),
-                      SizedBox(
-                        width: buttonWidth,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TeacherViewProfileScreen(
-                                  teacherProfileModel: teacher,
-                                ),
-                              ),
-                            );
-                          },
-
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.appColor,
-                            padding: EdgeInsets.symmetric(
-                              vertical: screenHeight * 0.015,
-                              horizontal: screenWidth * 0.03,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            'View Profile',
-                            style: TextStyle(
-                                fontSize: fontSizeButton,
-                                color: AppColors.black),
-                          ),
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "view student Profile List",
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Table(
+                          border: TableBorder.all(color: Colors.grey.shade300),
+                          defaultColumnWidth: IntrinsicColumnWidth(),
+                          children: [
+                            _buildTableHeader(),
+                            ..._buildTableRows(provider.teacher),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
           );
         },
       ),
     );
   }
 
-  Widget _buildDetail(String title, String value, double fontSize) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  TableRow _buildTableHeader() {
+    return TableRow(
+      decoration: const BoxDecoration(color: Color(0xFFEFEFEF)),
       children: [
-        Text(title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize)),
-        SizedBox(height: 4),
-        Text(value, style: TextStyle(fontSize: fontSize * 0.9)),
+        _headerCell("No."),
+        _headerCell("Name"),
+        _headerCell("Admission No."),
+        _headerCell("Class & Section"),
+        _headerCell("Mobile No."),
+        _headerCell("Date of Birth"),
+        _headerCell("Action"),
       ],
+    );
+  }
+
+
+
+  List<TableRow> _buildTableRows(List<dynamic> teacherList) {
+    return List.generate(teacherList.length, (index) {
+      final teacher = teacherList[index];
+      return TableRow(
+        children: [
+          _tableCell('${index + 1}'),
+          _tableCell(teacher.name),
+          _tableCell(teacher.admissionNumber),
+          _tableCell(teacher.classSection),
+          _tableCell(teacher.mobileNumber),
+          _tableCell(teacher.dob),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => TeacherViewProfileScreen(
+                      teacherProfileModel: teacher,
+                    ),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.appColor,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              ),
+              child: const Text(
+                "View",
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ),
+          ),
+        ],
+      );
+    });
+  }
+
+
+  static Widget _headerCell(String text) {
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
+    );
+  }
+
+  Widget _tableCell(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(text),
     );
   }
 }

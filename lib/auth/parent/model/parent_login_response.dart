@@ -45,17 +45,18 @@ class ParentModel {
 
   factory ParentModel.fromJson(Map<String, dynamic> json) {
     return ParentModel(
-      id: json['id'] ?? 0,
-      name: json['name'],
-      mobile: json['mobile'],
-      email: json['email'],
-      loginid: json['loginid'],
-      password: json['password'],
-      address: json['address'],
-      isActive: json['isactive'] ?? false,
-      createDate: json['createdate'],
+      id: json['ID'] ?? 0,
+      name: json['Name'],
+      mobile: json['Mobile'],
+      email: json['Email'],
+      loginid: json['LoginID'],
+      password: json['Password'],
+      address: json['Address'],
+      isActive: json['IsActive'] ?? false,
+      createDate: json['CreateDate'],
       auth: json['auth'],
     );
   }
+
 }
 

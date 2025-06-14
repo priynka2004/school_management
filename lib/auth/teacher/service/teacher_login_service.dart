@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
-import '../model/teacher_model.dart';
+import '../model/teacher_login_model.dart';
 
 class TeacherLoginService {
   Future<TeacherModel?> login(String mobile, String password) async {

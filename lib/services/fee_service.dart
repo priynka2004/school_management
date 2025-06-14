@@ -47,7 +47,6 @@ class FeeService {
     }
   }
 
-
   Future<List<FeeDetail>> fetchStudentFee({
     required int studentId,
     required String sessionId,
@@ -80,6 +79,5 @@ class FeeService {
       return [];
     }
   }
-
 
 }

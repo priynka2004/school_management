@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:school_management/auth/student/screen/StudentDashboard_d.dart';
 import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
 import 'package:school_management/auth/teacher/screen/teacher_change_password_screen.dart';
+import 'package:school_management/auth/teacher/screen/teacher_profile.dart';
 import 'package:school_management/auth/teacher/screen/teacher_profile_screen.dart';
 import 'package:school_management/screens/ChooseYourOptionScreen.dart';
 import 'package:school_management/screens/add_complain_box_screen.dart';
 import 'package:school_management/screens/add_leave_screen.dart';
-import 'package:school_management/screens/leave_list.dart';
-import 'package:school_management/screens/student_attendance.dart';
+import 'package:school_management/screens/attendance_screen.dart';
 import 'package:school_management/screens/teacher/dashboard_teacher_screen.dart';
-import 'package:school_management/screens/teacher/teacher_live_list_screen.dart';
+import 'package:school_management/screens/teacher/view_students_leave_screen.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/screens/view_notice_screen.dart';
 import 'package:school_management/utils/colors.dart';
@@ -56,8 +56,15 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
             const SizedBox(height: 26),
 
             _buildDrawerTile(
-              Icons.home,
-              'Dashboard',
+                Icons.home,
+                'Dashboard',
+                onTap: () {
+                }
+            ),
+
+            _buildDrawerTile(
+                Icons.recent_actors_rounded,
+                'view student',
                 onTap: () {
                   final loginProvider = Provider.of<TeacherLoginProvider>(context, listen: false);
                   final teacher = loginProvider.teacher;
@@ -77,38 +84,49 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
                     print('Teacher object is null or missing IDs');
                   }
                 }
-
-
             ),
 
-            _buildDrawerTile(Icons.receipt, 'View Fee',
+            _buildDrawerTile(Icons.view_list, 'Student Attendance ', onTap: () {
+
+            }),
+
+
+            _buildDrawerTile(Icons.receipt, 'View Students Leave',
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ViewFeeScreen()),
+                  MaterialPageRoute(builder: (_) => const ViewStudentsLeave()),
                 );
               },),
+
+
+            // _buildDrawerTile(
+            //   Icons.menu_book,
+            //   'View Notice',
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (_) => const ViewNoticeScreen()),
+            //     );
+            //   },
+            // ),
+
             _buildDrawerTile(
-              Icons.menu_book,
-              'View Notice',
+              Icons.person,
+              'Profile',
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ViewNoticeScreen()),
+                  MaterialPageRoute(
+                    builder: (_) => TeacherProfile(teacherId: 1,),
+                  ),
                 );
               },
             ),
 
-            _buildDrawerTile(Icons.chat_bubble_outline, 'Complain Box',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const AddComplainBoxScreen()),
-                );
-              },),
             _buildDrawerTile(Icons.vpn_key, 'Change Password',
               onTap: () {
                 Navigator.pop(context);
@@ -117,61 +135,48 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
                   MaterialPageRoute(builder: (_) => const TeacherChangePasswordScreen()),
                 );
               },),
-            _buildDrawerTile(Icons.view_list, 'Attendance Report', onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const StudentAttendanceReport()),
-              );
-            }),
-
-
-            _buildDrawerTile(
-              Icons.calendar_today,
-              'Apply For Leave',
-              isExpandable: true,
-              isExpanded: isLeaveExpanded,
-              onTap: () {
-                setState(() {
-                  isLeaveExpanded = !isLeaveExpanded;
-                });
-              },
-            ),
-
-            if (isLeaveExpanded)
-              Padding(
-                padding: const EdgeInsets.only(left: 40),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.add, color: Colors.white),
-                      title: const Text('Add Leave', style: TextStyle(color: Colors.white)),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const AddLeaveScreen()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.list, color: Colors.white),
-                      title: const Text('Leave List', style: TextStyle(color: Colors.white)),
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => TeacherLeaveListScreen(
-                              teacherID: 1,
-                              branchID: 1,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
+            // _buildDrawerTile(
+            //   Icons.calendar_today,
+            //   'Apply For Leave',
+            //   isExpandable: true,
+            //   isExpanded: isLeaveExpanded,
+            //   onTap: () {
+            //     setState(() {
+            //       isLeaveExpanded = !isLeaveExpanded;
+            //     });
+            //   },
+            // ),
+            //
+            // if (isLeaveExpanded)
+            //   Padding(
+            //     padding: const EdgeInsets.only(left: 40),
+            //     child: Column(
+            //       children: [
+            //         ListTile(
+            //           leading: const Icon(Icons.add, color: Colors.white),
+            //           title: const Text('Add Leave', style: TextStyle(color: Colors.white)),
+            //           onTap: () {
+            //             Navigator.pop(context);
+            //             Navigator.push(
+            //               context,
+            //               MaterialPageRoute(builder: (_) => const AddLeaveScreen()),
+            //             );
+            //           },
+            //         ),
+            //         ListTile(
+            //           leading: const Icon(Icons.list, color: Colors.white),
+            //           title: const Text('Leave List', style: TextStyle(color: Colors.white)),
+            //           onTap: () {
+            //             Navigator.pop(context);
+            //             Navigator.push(
+            //               context,
+            //               MaterialPageRoute(builder: (_) => const LeaveList()),
+            //             );
+            //           },
+            //         ),
+            //       ],
+            //     ),
+            //   ),
 
             const Divider(
               color: Colors.white38,
@@ -200,3 +205,10 @@ class _TeacherDrawerState extends State<TeacherDrawer> {
 }
 
 
+//Dashboard///////,<<,
+//view student   ??????????????
+//student Attendance
+//view student leave       <<<<<<<<
+//profile                <<<<<<<
+//change password        <<<<<<<<
+//sign out

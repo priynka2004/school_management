@@ -22,13 +22,16 @@ class ChooseYourOptionScreen extends StatefulWidget {
 class _ChooseYourOptionScreenState extends State<ChooseYourOptionScreen> {
 
   @override
+  @override
   void initState() {
     super.initState();
-    final provider = Provider.of<StudentLoginProvider>(context, listen: false);
-    provider.checkLoginStatus();
-    final loginProvider = Provider.of<TeacherLoginProvider>(context, listen: false);
-    loginProvider.checkLoginStatus();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<StudentLoginProvider>(context, listen: false).checkLoginStatus();
+      Provider.of<TeacherLoginProvider>(context, listen: false).checkLoginStatus();
+    });
   }
+
 
 
   @override
@@ -133,24 +136,24 @@ class _ChooseYourOptionScreenState extends State<ChooseYourOptionScreen> {
               ],
             ),
             SizedBox(height: screenHeight * 0.025),
-            Center(
-              child: _OptionCard(
-                imagePath: AppImagesConst.personImagePath,
-                label: AppStrings.parent,
-                width: screenWidth * 0.25,
-                height: screenHeight * 0.12,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ParentProfileScreen(
-                        parentId: 1,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            // Center(
+            //   child: _OptionCard(
+            //     imagePath: AppImagesConst.personImagePath,
+            //     label: AppStrings.parent,
+            //     width: screenWidth * 0.25,
+            //     height: screenHeight * 0.12,
+            //     onTap: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (_) => ParentProfileScreen(
+            //             parentId: 1,
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -3,15 +3,19 @@ import 'package:provider/provider.dart';
 
 
 import 'package:school_management/auth/parent/provider/parent_profile_provider.dart';
+import 'package:school_management/auth/teacher/provider/teacher_edit_profile_provider.dart';
 import 'package:school_management/auth/teacher/provider/teacher_login_provider.dart';
 import 'package:school_management/auth/student/provider/student_login_provider.dart';
 import 'package:school_management/auth/teacher/provider/teacher_profile_provider.dart';
+import 'package:school_management/auth/teacher/provider/teacher_provider.dart';
 import 'package:school_management/provider/complain_provider.dart';
 import 'package:school_management/provider/fee_provider.dart';
 import 'package:school_management/provider/leave_list_provider.dart';
+import 'package:school_management/provider/save_attendance_provider.dart';
 import 'package:school_management/provider/student_addendance_report_provider.dart';
 import 'package:school_management/provider/student_dashboard_provider.dart';
 import 'package:school_management/provider/view_notice_provider.dart';
+import 'package:school_management/provider/view_student_leave_provider.dart';
 
 import 'package:school_management/screens/splash_screen.dart';
 
@@ -39,6 +43,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => StudentAttendanceReportProvider()),
         ChangeNotifierProvider(create: (_) => TeacherProfileProvider()),
         ChangeNotifierProvider(create: (_) => TeacherLeaveProvider()),
+        ChangeNotifierProvider(create: (_) => TeacherProvider()),
+        ChangeNotifierProvider(create: (_) => TeacherEditProfileProvider()),
+        ChangeNotifierProvider(create: (_) => ViewStudentLeaveProvider()),
+        ChangeNotifierProvider(create: (_) => SaveAttendanceProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

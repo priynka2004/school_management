@@ -70,8 +70,8 @@ class _ParentProfileScreenState extends State<ParentProfileScreen> {
                             padding: const EdgeInsets.only(top: 60, left: 50),
                             child: Image.asset(
                               AppImagesConst.rectangleImagePath,
-                              height: MediaQuery.of(context).size.height * 0.16, // 16% of screen height
-                              width: MediaQuery.of(context).size.width * 0.35,   // 35% of screen width
+                              height: MediaQuery.of(context).size.height * 0.16,
+                              width: MediaQuery.of(context).size.width * 0.35,
                               fit: BoxFit.contain,
                             ),
 

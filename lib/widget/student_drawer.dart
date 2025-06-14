@@ -4,6 +4,7 @@ import 'package:school_management/auth/student/screen/StudentDashboard_d.dart';
 import 'package:school_management/auth/teacher/screen/teacher_change_password_screen.dart';
 import 'package:school_management/screens/add_complain_box_screen.dart';
 import 'package:school_management/screens/leave_list.dart';
+import 'package:school_management/screens/save_attendance_screen.dart';
 import 'package:school_management/screens/student_attendance.dart';
 import 'package:school_management/screens/view_fee_screen.dart';
 import 'package:school_management/screens/view_notice_screen.dart';
@@ -104,6 +105,13 @@ class _StudentDrawerState extends State<StudentDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const StudentAttendanceReport()),
+              );
+            }),
+
+            _buildDrawerTile(Icons.list_alt, 'Attendance', onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SaveAttendanceScreen()),
               );
             }),
 
